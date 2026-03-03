@@ -1,0 +1,25 @@
+{
+  "version": 1,
+  "skills": {
+    "self-improving-agent": {
+      "version": "1.0.11",
+      "installedAt": 1772568504131
+    },
+    "mcporter": {
+      "version": "1.0.0",
+      "installedAt": 1772568666342
+    },
+    "automation-workflows": {
+      "version": "0.1.0",
+      "installedAt": 1772568798165
+    },
+    "auto-updater": {
+      "version": "1.0.0",
+      "installedAt": 1772568840460
+    },
+    "model-usage": {
+      "version": "1.0.0",
+      "installedAt": 1772568901903
+    }
+  }
+}
