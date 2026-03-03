@@ -14,6 +14,8 @@
   --text-primary: #fafafa;
   --text-secondary: #a1a1aa;
   --text-muted: #71717a;
+  --accent: #6366f1;
+  --accent-hover: #4f46e5;
   
   /* Area Colors */
   --kit: #8b5cf6;
@@ -29,6 +31,19 @@
   --success: #22c55e;
   --warning: #eab308;
   --danger: #ef4444;
+}
+
+/* Light Theme */
+[data-theme="light"] {
+  --bg-primary: #ffffff;
+  --bg-secondary: #f6f6f8;
+  --bg-tertiary: #efeff1;
+  --bg-hover: #e8e8ea;
+  --border: #d1d1d6;
+  --border-hover: #c7c7cc;
+  --text-primary: #1d1d1f;
+  --text-secondary: #6e6e73;
+  --text-muted: #aeaeb2;
 }
 
 * {
@@ -179,4 +194,44 @@ body {
 .btn-secondary:hover {
   background: var(--bg-hover);
   border-color: var(--border-hover);
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { 
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to { 
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.2s ease-out;
+}
+
+.animate-slideUp {
+  animation: slideUp 0.3s ease-out;
+}
+
+.animate-pulse {
+  animation: pulse 2s infinite;
+}
+
+/* Focus */
+*:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
 }

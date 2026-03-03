@@ -1,7 +1,12 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
+import { Plus } from 'lucide-react';
 import Sidebar, { Screen } from '@/components/Sidebar';
+import CommandPalette from '@/components/CommandPalette';
+import TopBar from '@/components/TopBar';
+import QuickAdd from '@/components/QuickAdd';
 import TaskBoard from '@/screens/TaskBoard';
 import CalendarScreen from '@/screens/CalendarScreen';
 import ProjectsScreen from '@/screens/ProjectsScreen';
@@ -22,6 +27,19 @@ import {
 
 export default function Home() {
   const [activeScreen, setActiveScreen] = useState<Screen>('tasks');
+  const [quickAddOpen, setQuickAddOpen] = useState(false);
+  const router = useRouter();
+
+  // Listen for QuickAdd event
+  useEffect(() => {
+    const handleQuickAdd = () => setQuickAddOpen(true);
+    window.addEventListener('open-quick-add', handleQuickAdd);
+    return () => window.removeEventListener('open-quick-add', handleQuickAdd);
+  }, []);
+
+  const handleNavigate = (path: string) => {
+    router.push(path);
+  };
 
   const renderScreen = () => {
     switch (activeScreen) {
@@ -45,11 +63,25 @@ export default function Home() {
   };
 
   return (
-    <div className="h-screen flex bg-[var(--bg-primary)]">
-      <Sidebar activeScreen={activeScreen} onScreenChange={setActiveScreen} />
-      <main className="flex-1 p-6 overflow-hidden">
-        {renderScreen()}
-      </main>
+    <div className="h-screen flex flex-col bg-[var(--bg-primary)]">
+      <div className="flex flex-1 overflow-hidden">
+        <Sidebar activeScreen={activeScreen} onScreenChange={setActiveScreen} />
+        <div className="flex-1 flex flex-col overflow-hidden">
+          <TopBar />
+          <main className="flex-1 p-6 overflow-hidden">
+            {renderScreen()}
+          </main>
+        </div>
+        <CommandPalette onNavigate={handleNavigate} />
+        <button
+          onClick={() => setQuickAddOpen(true)}
+          className="fixed bottom-6 right-6 w-14 h-14 rounded-full bg-[var(--accent)] text-white shadow-lg flex items-center justify-center hover:scale-110 transition-transform z-40"
+          title="Quick Add (⌘N)"
+        >
+          <Plus size={24} />
+        </button>
+      </div>
+      <QuickAdd isOpen={quickAddOpen} onClose={() => setQuickAddOpen(false)} />
     </div>
   );
 }

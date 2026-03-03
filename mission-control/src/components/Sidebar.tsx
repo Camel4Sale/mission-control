@@ -20,14 +20,14 @@ interface SidebarProps {
   onScreenChange: (screen: Screen) => void;
 }
 
-const menuItems: { id: Screen; label: string; icon: React.ReactNode }[] = [
-  { id: 'tasks', label: 'Tasks', icon: <FolderKanban size={18} /> },
-  { id: 'calendar', label: 'Kalender', icon: <Calendar size={18} /> },
-  { id: 'projects', label: 'Projekte', icon: <LayoutDashboard size={18} /> },
-  { id: 'memory', label: 'Memory', icon: <Brain size={18} /> },
-  { id: 'docs', label: 'Docs', icon: <FileText size={18} /> },
-  { id: 'team', label: 'Team', icon: <Users size={18} /> },
-  { id: 'office', label: 'Office', icon: <Building2 size={18} /> },
+const menuItems: { id: Screen; label: string; icon: React.ReactNode; shortcut: string }[] = [
+  { id: 'tasks', label: 'Tasks', icon: <FolderKanban size={18} />, shortcut: 'G T' },
+  { id: 'calendar', label: 'Kalender', icon: <Calendar size={18} />, shortcut: 'G C' },
+  { id: 'projects', label: 'Projekte', icon: <LayoutDashboard size={18} />, shortcut: 'G P' },
+  { id: 'memory', label: 'Memory', icon: <Brain size={18} />, shortcut: 'G M' },
+  { id: 'docs', label: 'Docs', icon: <FileText size={18} />, shortcut: 'G D' },
+  { id: 'team', label: 'Team', icon: <Users size={18} />, shortcut: '' },
+  { id: 'office', label: 'Office', icon: <Building2 size={18} />, shortcut: '' },
 ];
 
 export default function Sidebar({ activeScreen, onScreenChange }: SidebarProps) {

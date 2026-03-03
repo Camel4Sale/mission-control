@@ -1,8 +1,8 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { 
   Command, GraduationCap, Building2, Sun, Home, 
   Briefcase, LayoutGrid, Settings, ChevronRight,
@@ -13,7 +13,7 @@ import {
 } from 'lucide-react';
 
 const navigation = [
-  { name: 'Command Center', href: '/', icon: Command },
+  { name: 'Command Center', href: '/', icon: Command, shortcut: 'G H' },
   { 
     name: 'Studium (KIT)', 
     href: '/studium', 
@@ -21,10 +21,10 @@ const navigation = [
     color: 'var(--kit)',
     items: [
       { name: 'Dashboard', href: '/studium' },
-      { name: 'Module', href: '/studium/module' },
-      { name: 'Klausuren', href: '/studium/klausuren' },
-      { name: 'Masterarbeit', href: '/studium/thesis' },
-      { name: 'Noten', href: '/studium/noten' },
+      { name: 'Module', href: '/studium/module', shortcut: 'G M' },
+      { name: 'Klausuren', href: '/studium/klausuren', shortcut: 'G K' },
+      { name: 'Masterarbeit', href: '/studium/thesis', shortcut: 'G T' },
+      { name: 'Noten', href: '/studium/noten', shortcut: 'G N' },
     ]
   },
   { 
@@ -34,9 +34,9 @@ const navigation = [
     color: 'var(--pathium)',
     items: [
       { name: 'Übersicht', href: '/unternehmen' },
-      { name: 'Pathium', href: '/unternehmen/pathium', icon: PathiumIcon, color: 'var(--pathium)' },
-      { name: 'Celaris', href: '/unternehmen/celaris', icon: CelarisIcon, color: 'var(--celaris)' },
-      { name: 'Elysium', href: '/unternehmen/elysium', icon: ElysiumIcon, color: 'var(--elysium)' },
+      { name: 'Pathium', href: '/unternehmen/pathium', shortcut: 'G P', icon: PathiumIcon, color: 'var(--pathium)' },
+      { name: 'Celaris', href: '/unternehmen/celaris', shortcut: 'G C', icon: CelarisIcon, color: 'var(--celaris)' },
+      { name: 'Elysium', href: '/unternehmen/elysium', shortcut: 'G E', icon: ElysiumIcon, color: 'var(--elysium)' },
     ]
   },
 ];
@@ -94,7 +94,7 @@ export default function Navigation() {
                   
                   {expanded === item.name && (
                     <ul className="ml-9 mt-1 space-y-1">
-                      {item.items.map((subItem) => (
+                      {item.items?.map((subItem) => (
                         <li key={subItem.href}>
                           <Link
                             href={subItem.href}
@@ -104,7 +104,14 @@ export default function Navigation() {
                                 : 'text-[var(--text-secondary)] hover:bg-[var(--bg-hover)] hover:text-[var(--text-primary)]'
                             }`}
                           >
-                            {subItem.name}
+                            <div className="flex items-center justify-between">
+                              <span>{subItem.name}</span>
+                              {subItem.shortcut && (
+                                <kbd className="text-xs px-1.5 py-0.5 rounded bg-[var(--bg-tertiary)] text-[var(--text-muted)]">
+                                  {subItem.shortcut}
+                                </kbd>
+                              )}
+                            </div>
                           </Link>
                         </li>
                       ))}
