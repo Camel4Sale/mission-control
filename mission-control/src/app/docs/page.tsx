@@ -13,7 +13,7 @@ export default function DocsPage() {
         <h1 className="text-2xl font-semibold">Docs</h1>
         <p className="text-sm text-[var(--text-muted)]">Dokumentation</p>
       </div>
-      <DocsScreen documents={docs} />
+      <DocsScreen />
     </div>
   );
 }

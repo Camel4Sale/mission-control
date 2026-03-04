@@ -48,6 +48,14 @@
     "nano-pdf": {
       "version": "1.0.0",
       "installedAt": 1772619832384
+    },
+    "byterover": {
+      "version": "2.0.0",
+      "installedAt": 1772626203691
+    },
+    "clawdhub": {
+      "version": "1.0.0",
+      "installedAt": 1772627956356
     }
   }
 }

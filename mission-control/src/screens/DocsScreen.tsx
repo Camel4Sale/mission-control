@@ -14,6 +14,7 @@ export default function DocsScreen({ documents: propDocuments }: DocsScreenProps
   const [documents, setDocuments] = useState<Document[]>(propDocuments || []);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [selectedDoc, setSelectedDoc] = useState<Document | null>(null);
+  const [searchQuery, setSearchQuery] = useState('');
 
   const categories = [
     { id: 'onboarding', label: 'Onboarding', icon: '🚀' },

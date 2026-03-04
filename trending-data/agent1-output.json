@@ -1,0 +1,41 @@
+{
+  "agent": "Agent 1 - Trending Finder",
+  "timestamp": "2026-03-04T13:00:00Z",
+  "source": "Google News (Twitter nicht verfügbar)",
+  "topics": [
+    {
+      "id": 1,
+      "category": "Politics/Finance",
+      "title": "Merz trifft Trump im Weißen Haus",
+      "summary": "Deutschlands Kanzler Friedrich Merz zu Besuch bei Trump. Thema: Iran, Zölle, Ukraine. USA und Israel melden tausende Angriffe auf Iran seit Kriegsbeginn.",
+      "engagement": "Hoch",
+      "potential": "Mittelmäßig - politisch relevant, aber weniger viral"
+    },
+    {
+      "id": 2,
+      "category": "Geopolitics/Finance",
+      "title": "Irans Oberhaupt Chamenei tot - Sohn könnte folgen",
+      "summary": "Der religiöse Führer des Irans ist verstorben. Sein Sohn Mojtaba könnte die Nachfolge antreten. Spannungen eskalieren.",
+      "engagement": "Sehr hoch",
+      "potential": "Hoch - brandaktuelle Story, viele speculationen über Nachfolge"
+    },
+    {
+      "id": 3,
+      "category": "Finance/Markets",
+      "title": "Merz' Iran-Zustimmung, aber Streit um Zölle",
+      "summary": "Deutschland stimmt US-Position zu Iran zu, aber weiter Streit bei Zöllen und Ukraine-Unterstützung.",
+      "engagement": "Mittel",
+      "potential": "Mittel - wichtige Wirtschaftsnachricht"
+    },
+    {
+      "id": 4,
+      "category": "Tech (keine aktuellen Hits)",
+      "title": "Keine Tech-Trends gefunden",
+      "summary": "Twitter/Browser nicht verfügbar für echte Trending-Suche. fallback auf News-Suche.",
+      "engagement": "N/A",
+      "potential": "Limitiert durch fehlende Twitter-API"
+    }
+  ],
+  "notes": "Agent 1 benötigt Twitter API oder Browser-Zugang für bessere Trending-Daten. Brave Search API Key fehlt ebenfalls.",
+  "recommended_stories": [2, 1]
+}

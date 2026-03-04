@@ -211,10 +211,9 @@ export default function CalendarScreen() {
     setModalOpen(true);
   };
 
-  const handleEventClick = (e: CalendarEvent, date: Date) => {
-    e.stopPropagation();
+  const handleEventClick = (event: CalendarEvent, date: Date) => {
     setSelectedDate(date);
-    setEditingEvent(e);
+    setEditingEvent(event);
     setModalOpen(true);
   };
 

@@ -18,7 +18,7 @@ export default function TasksPage() {
         <h1 className="text-2xl font-semibold">Tasks</h1>
         <p className="text-sm text-[var(--text-muted)]">Task Board</p>
       </div>
-      <TaskBoard tasks={tasks} onTaskUpdate={handleTaskUpdate} />
+      <TaskBoard />
     </div>
   );
 }

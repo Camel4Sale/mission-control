@@ -15,6 +15,7 @@ export default function MemoryScreen({ memoryEntries: propMemoryEntries, longTer
   const [memoryEntries, setMemoryEntries] = useState<MemoryEntry[]>(propMemoryEntries || []);
   const [longTermMemory, setLongTermMemory] = useState<LongTermMemory[]>(propLongTermMemory || []);
   const [searchQuery, setSearchQuery] = useState('');
+  const [activeTab, setActiveTab] = useState<'daily' | 'longterm'>('daily');
 
   // Group memory entries by date
   const groupedEntries = memoryEntries.reduce((acc, entry) => {
