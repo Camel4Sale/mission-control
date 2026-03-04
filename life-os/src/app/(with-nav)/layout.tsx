@@ -1,5 +1,6 @@
 'use client';
 
+import { Inter } from "next/font/google";
 import Navigation from '@/components/Navigation';
 import TopBar from '@/components/TopBar';
 import QuickAdd from '@/components/QuickAdd';
@@ -10,6 +11,11 @@ import "@/app/globals.css";
 
 import { ChevronRight } from 'lucide-react';
 import Link from 'next/link';
+
+const inter = Inter({ 
+  subsets: ["latin"],
+  variable: "--font-sans",
+});
 
 function generateBreadcrumbs(pathname: string): { label: string; href: string }[] {
   const paths = pathname.split('/').filter(Boolean);
@@ -75,8 +81,8 @@ export default function RootLayout({
   }, []);
 
   return (
-    <html lang="de">
-      <body className="antialiased">
+    <html lang="de" data-theme="dark">
+      <body className={`${inter.variable} antialiased`}>
         <div className="flex h-screen overflow-hidden bg-[var(--bg-primary)]">
           <Navigation />
           <div className="flex-1 flex flex-col overflow-hidden">

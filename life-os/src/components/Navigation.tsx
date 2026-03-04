@@ -197,36 +197,36 @@ export default function Navigation() {
                 <div>
                   <button
                     onClick={() => toggleExpanded(item.name)}
-                    className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm transition-colors ${
+                    className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm transition-all duration-200 ease-out ${
                       isActive(item.href)
                         ? 'bg-[var(--bg-tertiary)] text-[var(--text-primary)]'
                         : 'text-[var(--text-secondary)] hover:bg-[var(--bg-hover)] hover:text-[var(--text-primary)]'
                     }`}
                   >
                     <item.icon size={18} style={{ color: item.color }} />
-                    <span className="flex-1 text-left">{item.name}</span>
+                    <span className="flex-1 text-left font-medium">{item.name}</span>
                     <ChevronRight 
                       size={14} 
-                      className={`transition-transform ${expanded === item.name ? 'rotate-90' : ''}`}
+                      className={`transition-transform duration-200 ease-out ${expanded === item.name ? 'rotate-90' : ''}`}
                     />
                   </button>
                   
                   {expanded === item.name && (
-                    <ul className="ml-9 mt-1 space-y-1">
+                    <ul className="ml-9 mt-1 space-y-0.5 animate-slide-down">
                       {item.items?.map((subItem) => (
                         <li key={subItem.href}>
                           <Link
                             href={subItem.href}
-                            className={`block px-3 py-2 rounded-lg text-sm transition-colors ${
+                            className={`block px-3 py-2 rounded-lg text-sm transition-all duration-200 ease-out ${
                               pathname === subItem.href
-                                ? 'bg-[#6366f1]/10 text-[#6366f1]'
+                                ? 'bg-[var(--accent)]/10 text-[var(--accent)] font-medium'
                                 : 'text-[var(--text-secondary)] hover:bg-[var(--bg-hover)] hover:text-[var(--text-primary)]'
                             }`}
                           >
                             <div className="flex items-center justify-between">
                               <span>{subItem.name}</span>
                               {subItem.shortcut && (
-                                <kbd className="text-xs px-1.5 py-0.5 rounded bg-[var(--bg-tertiary)] text-[var(--text-muted)]">
+                                <kbd className="text-[10px] px-1.5 py-0.5 rounded bg-[var(--bg-tertiary)] text-[var(--text-muted)] font-mono">
                                   {subItem.shortcut}
                                 </kbd>
                               )}

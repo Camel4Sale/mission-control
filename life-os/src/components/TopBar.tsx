@@ -113,11 +113,11 @@ export default function TopBar({ title, breadcrumbs = [] }: TopBarProps) {
           {/* Search */}
           <button 
             onClick={() => setSearchOpen(true)}
-            className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-[var(--bg-tertiary)] text-sm text-[var(--text-muted)] hover:bg-[var(--bg-hover)] transition-colors"
+            className="flex items-center gap-2.5 px-3.5 py-2 rounded-lg bg-[var(--bg-tertiary)] text-sm text-[var(--text-muted)] hover:bg-[var(--bg-hover)] hover:text-[var(--text-secondary)] transition-all duration-200 border border-transparent hover:border-[var(--border-default)]"
           >
             <Search size={14} />
-            <span>Search...</span>
-            <kbd className="text-xs px-1.5 py-0.5 rounded bg-[var(--bg-secondary)]">⌘K</kbd>
+            <span className="min-w-[60px]">Search...</span>
+            <kbd className="text-[10px] px-1.5 py-0.5 rounded bg-[var(--bg-secondary)] font-mono text-[var(--text-muted)] border border-[var(--border-subtle)]">⌘K</kbd>
           </button>
 
           {/* Weather Widget */}
@@ -149,66 +149,68 @@ export default function TopBar({ title, breadcrumbs = [] }: TopBarProps) {
           {/* Theme Toggle */}
           <button
             onClick={toggleTheme}
-            className="p-2 rounded-lg hover:bg-[var(--bg-hover)] text-[var(--text-secondary)] transition-colors"
+            className="p-2 rounded-lg hover:bg-[var(--bg-hover)] text-[var(--text-secondary)] transition-all duration-200 hover:scale-105"
             title={theme === 'dark' ? 'Light Mode' : 'Dark Mode'}
           >
             {theme === 'dark' ? <Sun size={16} /> : <Moon size={16} />}
           </button>
 
           {/* Notifications */}
-          <button className="p-2 rounded-lg hover:bg-[var(--bg-hover)] text-[var(--text-secondary)] transition-colors relative">
+          <button className="p-2 rounded-lg hover:bg-[var(--bg-hover)] text-[var(--text-secondary)] transition-all duration-200 hover:scale-105 relative group">
             <Bell size={16} />
-            <span className="absolute top-1 right-1 w-2 h-2 bg-[var(--accent)] rounded-full"></span>
+            <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-[var(--accent)] rounded-full ring-2 ring-[var(--bg-secondary)]"></span>
+            <span className="absolute -bottom-8 left-1/2 -translate-x-1/2 text-[10px] bg-[var(--bg-tertiary)] px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">Notifications</span>
           </button>
 
           {/* User */}
-          <button className="flex items-center gap-2 pl-2 pr-3 py-1 rounded-lg hover:bg-[var(--bg-hover)] transition-colors">
-            <div className="w-6 h-6 rounded-full bg-[var(--accent)] flex items-center justify-center">
+          <button className="flex items-center gap-2 pl-1.5 pr-2.5 py-1.5 rounded-lg hover:bg-[var(--bg-hover)] transition-all duration-200 hover:scale-[1.02]">
+            <div className="w-7 h-7 rounded-full bg-gradient-to-br from-[var(--accent)] to-[var(--kit)] flex items-center justify-center ring-2 ring-[var(--bg-tertiary)]">
               <User size={14} className="text-white" />
             </div>
+            <span className="text-xs text-[var(--text-secondary)] hidden sm:inline">Profile</span>
           </button>
         </div>
       </header>
 
       {/* Search Modal */}
       {searchOpen && (
-        <div className="fixed inset-0 bg-black/50 flex items-start justify-center pt-[20vh] z-50" onClick={() => setSearchOpen(false)}>
+        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-start justify-center pt-[15vh] z-50 animate-fade-in" onClick={() => setSearchOpen(false)}>
           <div 
-            className="w-full max-w-lg bg-[var(--bg-secondary)] rounded-xl shadow-2xl border border-[var(--border)] overflow-hidden"
+            className="w-full max-w-lg bg-[var(--bg-secondary)] rounded-xl shadow-2xl border border-[var(--border)] overflow-hidden animate-scale-in"
             onClick={e => e.stopPropagation()}
           >
-            <div className="flex items-center gap-3 px-4 py-3 border-b border-[var(--border)]">
+            <div className="flex items-center gap-3 px-4 py-3.5 border-b border-[var(--border)] bg-[var(--bg-tertiary)]/50">
               <Search size={18} className="text-[var(--text-muted)]" />
               <input
                 type="text"
                 placeholder="Search pages, actions..."
-                className="flex-1 bg-transparent outline-none text-sm"
+                className="flex-1 bg-transparent outline-none text-sm text-[var(--text-primary)] placeholder:text-[var(--text-muted)]"
                 autoFocus
               />
-              <kbd className="text-xs px-2 py-1 rounded bg-[var(--bg-tertiary)] text-[var(--text-muted)]">ESC</kbd>
+              <kbd className="text-[10px] px-2 py-1 rounded bg-[var(--bg-secondary)] text-[var(--text-muted)] border border-[var(--border-subtle)] font-mono">ESC</kbd>
             </div>
-            <div className="p-4">
-              <div className="text-xs text-[var(--text-muted)] mb-2">QUICK NAVIGATION</div>
+            <div className="p-2 max-h-[60vh] overflow-y-auto">
+              <div className="text-[10px] font-semibold uppercase tracking-wider text-[var(--text-muted)] px-3 py-2">Quick Navigation</div>
               <div className="space-y-1">
-                <div className="px-3 py-2 rounded-lg hover:bg-[var(--bg-hover)] text-sm cursor-pointer flex items-center gap-3">
-                  <span className="text-[var(--accent)]">📚</span>
-                  <span>Studium / Module</span>
+                <div className="px-3 py-2.5 rounded-lg hover:bg-[var(--bg-hover)] text-sm cursor-pointer flex items-center gap-3 transition-colors group">
+                  <span className="text-[var(--accent)] opacity-70 group-hover:opacity-100">📚</span>
+                  <span className="text-[var(--text-secondary)] group-hover:text-[var(--text-primary)]">Studium / Module</span>
                 </div>
-                <div className="px-3 py-2 rounded-lg hover:bg-[var(--bg-hover)] text-sm cursor-pointer flex items-center gap-3">
-                  <span className="text-[var(--accent)]">📝</span>
-                  <span>Studium / Klausuren</span>
+                <div className="px-3 py-2.5 rounded-lg hover:bg-[var(--bg-hover)] text-sm cursor-pointer flex items-center gap-3 transition-colors group">
+                  <span className="text-[var(--accent)] opacity-70 group-hover:opacity-100">📝</span>
+                  <span className="text-[var(--text-secondary)] group-hover:text-[var(--text-primary)]">Studium / Klausuren</span>
                 </div>
-                <div className="px-3 py-2 rounded-lg hover:bg-[var(--bg-hover)] text-sm cursor-pointer flex items-center gap-3">
-                  <span className="text-[var(--accent)]">🎓</span>
-                  <span>Studium / Masterarbeit</span>
+                <div className="px-3 py-2.5 rounded-lg hover:bg-[var(--bg-hover)] text-sm cursor-pointer flex items-center gap-3 transition-colors group">
+                  <span className="text-[var(--accent)] opacity-70 group-hover:opacity-100">🎓</span>
+                  <span className="text-[var(--text-secondary)] group-hover:text-[var(--text-primary)]">Studium / Masterarbeit</span>
                 </div>
-                <div className="px-3 py-2 rounded-lg hover:bg-[var(--bg-hover)] text-sm cursor-pointer flex items-center gap-3">
-                  <span className="text-[var(--accent)]">🏢</span>
-                  <span>Unternehmen / Pathium</span>
+                <div className="px-3 py-2.5 rounded-lg hover:bg-[var(--bg-hover)] text-sm cursor-pointer flex items-center gap-3 transition-colors group">
+                  <span className="text-[var(--accent)] opacity-70 group-hover:opacity-100">🏢</span>
+                  <span className="text-[var(--text-secondary)] group-hover:text-[var(--text-primary)]">Unternehmen / Pathium</span>
                 </div>
-                <div className="px-3 py-2 rounded-lg hover:bg-[var(--bg-hover)] text-sm cursor-pointer flex items-center gap-3">
-                  <span className="text-[var(--accent)]">🚀</span>
-                  <span>Command Center</span>
+                <div className="px-3 py-2.5 rounded-lg hover:bg-[var(--bg-hover)] text-sm cursor-pointer flex items-center gap-3 transition-colors group">
+                  <span className="text-[var(--accent)] opacity-70 group-hover:opacity-100">🚀</span>
+                  <span className="text-[var(--text-secondary)] group-hover:text-[var(--text-primary)]">Command Center</span>
                 </div>
               </div>
             </div>
@@ -218,26 +220,26 @@ export default function TopBar({ title, breadcrumbs = [] }: TopBarProps) {
 
       {/* Shortcuts Modal */}
       {showShortcuts && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50" onClick={() => setShowShortcuts(false)}>
-          <div className="w-full max-w-md bg-[var(--bg-secondary)] rounded-xl border border-[var(--border)] p-4" onClick={e => e.stopPropagation()}>
-            <h3 className="font-medium mb-3">Keyboard Shortcuts</h3>
-            <div className="space-y-2 text-sm">
-              <div className="flex justify-between">
-                <span className="text-[var(--text-muted)]">Quick Search</span>
-                <kbd className="px-2 py-0.5 rounded bg-[var(--bg-tertiary)]">⌘ K</kbd>
+        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 animate-fade-in" onClick={() => setShowShortcuts(false)}>
+          <div className="w-full max-w-sm bg-[var(--bg-secondary)] rounded-xl border border-[var(--border)] p-5 animate-scale-in" onClick={e => e.stopPropagation()}>
+            <h3 className="font-semibold text-[var(--text-primary)] mb-4">Keyboard Shortcuts</h3>
+            <div className="space-y-3">
+              <div className="flex justify-between items-center py-2 border-b border-[var(--border-subtle)]">
+                <span className="text-sm text-[var(--text-secondary)]">Quick Search</span>
+                <kbd className="px-2.5 py-1 rounded bg-[var(--bg-tertiary)] text-xs font-mono text-[var(--text-muted)] border border-[var(--border-subtle)]">⌘ K</kbd>
               </div>
-              <div className="flex justify-between">
-                <span className="text-[var(--text-muted)]">Toggle Theme</span>
-                <kbd className="px-2 py-0.5 rounded bg-[var(--bg-tertiary)]">⌘ ⌥ T</kbd>
+              <div className="flex justify-between items-center py-2 border-b border-[var(--border-subtle)]">
+                <span className="text-sm text-[var(--text-secondary)]">Toggle Theme</span>
+                <kbd className="px-2.5 py-1 rounded bg-[var(--bg-tertiary)] text-xs font-mono text-[var(--text-muted)] border border-[var(--border-subtle)]">⌘ ⌥ T</kbd>
               </div>
-              <div className="flex justify-between">
-                <span className="text-[var(--text-muted)]">Shortcuts</span>
-                <kbd className="px-2 py-0.5 rounded bg-[var(--bg-tertiary)]">⌘ /</kbd>
+              <div className="flex justify-between items-center py-2">
+                <span className="text-sm text-[var(--text-secondary)]">Shortcuts</span>
+                <kbd className="px-2.5 py-1 rounded bg-[var(--bg-tertiary)] text-xs font-mono text-[var(--text-muted)] border border-[var(--border-subtle)]">⌘ /</kbd>
               </div>
             </div>
             <button 
               onClick={() => setShowShortcuts(false)}
-              className="mt-4 w-full py-2 rounded-lg bg-[var(--bg-tertiary)] hover:bg-[var(--bg-hover)] text-sm"
+              className="mt-5 w-full py-2.5 rounded-lg bg-[var(--bg-tertiary)] hover:bg-[var(--bg-hover)] text-sm font-medium text-[var(--text-secondary)] transition-all duration-200"
             >
               Close
             </button>
