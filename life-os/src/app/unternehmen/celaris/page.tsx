@@ -3,8 +3,9 @@
 import { useState, useEffect } from 'react';
 import { 
   Sun, TrendingUp, DollarSign, Package, Truck, 
-  AlertTriangle, CheckCircle, Clock, Building, Users
+  AlertTriangle, CheckCircle, Clock, Building, Users, ArrowRight
 } from 'lucide-react';
+import Link from 'next/link';
 import { 
   fetchSalesLeads, fetchSupplyOrders, fetchInstallationProjects, 
   fetchSolarFinancials 
@@ -86,6 +87,30 @@ export default function CelarisPage() {
             <p className="text-sm text-[var(--text-secondary)]">Solar Solutions</p>
           </div>
         </div>
+      </div>
+
+      {/* Section Navigation */}
+      <div className="flex gap-2">
+        <Link href="/unternehmen/celaris/crm" className="card p-3 hover:border-[#f59e0b] transition-colors flex items-center gap-2">
+          <Users size={16} className="text-[#f59e0b]" />
+          <span className="text-sm font-medium">CRM</span>
+          <ArrowRight size={14} className="text-[var(--text-muted)]" />
+        </Link>
+        <Link href="/unternehmen/celaris/finance" className="card p-3 hover:border-[#f59e0b] transition-colors flex items-center gap-2">
+          <DollarSign size={16} className="text-[#f59e0b]" />
+          <span className="text-sm font-medium">Finanzen</span>
+          <ArrowRight size={14} className="text-[var(--text-muted)]" />
+        </Link>
+        <Link href="/unternehmen/celaris/projects" className="card p-3 hover:border-[#f59e0b] transition-colors flex items-center gap-2">
+          <Package size={16} className="text-[#f59e0b]" />
+          <span className="text-sm font-medium">Projekte</span>
+          <ArrowRight size={14} className="text-[var(--text-muted)]" />
+        </Link>
+        <Link href="/unternehmen/celaris/team" className="card p-3 hover:border-[#f59e0b] transition-colors flex items-center gap-2">
+          <Building size={16} className="text-[#f59e0b]" />
+          <span className="text-sm font-medium">Team</span>
+          <ArrowRight size={14} className="text-[var(--text-muted)]" />
+        </Link>
       </div>
 
       {/* Stats Row */}

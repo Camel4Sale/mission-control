@@ -3,8 +3,9 @@
 import { useState, useEffect } from 'react';
 import { 
   Building, TrendingUp, DollarSign, Home, Calendar,
-  AlertTriangle, CheckCircle, Clock, Users, Wrench, Camera
+  AlertTriangle, CheckCircle, Clock, Users, Wrench, Camera, ArrowRight
 } from 'lucide-react';
+import Link from 'next/link';
 import { 
   fetchDealPipeline, fetchRenovationPhases, fetchHandymen, 
   fetchMarketingTrackers, fetchPortfolioFinance 
@@ -109,6 +110,30 @@ export default function ElysiumPage() {
         <button className="btn btn-primary">
           + Deal hinzufügen
         </button>
+      </div>
+
+      {/* Section Navigation */}
+      <div className="flex gap-2">
+        <Link href="/unternehmen/elysium/crm" className="card p-3 hover:border-[#10b981] transition-colors flex items-center gap-2">
+          <Users size={16} className="text-[#10b981]" />
+          <span className="text-sm font-medium">CRM</span>
+          <ArrowRight size={14} className="text-[var(--text-muted)]" />
+        </Link>
+        <Link href="/unternehmen/elysium/finance" className="card p-3 hover:border-[#10b981] transition-colors flex items-center gap-2">
+          <DollarSign size={16} className="text-[#10b981]" />
+          <span className="text-sm font-medium">Finanzen</span>
+          <ArrowRight size={14} className="text-[var(--text-muted)]" />
+        </Link>
+        <Link href="/unternehmen/elysium/projects" className="card p-3 hover:border-[#10b981] transition-colors flex items-center gap-2">
+          <Home size={16} className="text-[#10b981]" />
+          <span className="text-sm font-medium">Projekte</span>
+          <ArrowRight size={14} className="text-[var(--text-muted)]" />
+        </Link>
+        <Link href="/unternehmen/elysium/team" className="card p-3 hover:border-[#10b981] transition-colors flex items-center gap-2">
+          <Users size={16} className="text-[#10b981]" />
+          <span className="text-sm font-medium">Team</span>
+          <ArrowRight size={14} className="text-[var(--text-muted)]" />
+        </Link>
       </div>
 
       {/* Portfolio Stats */}

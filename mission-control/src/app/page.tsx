@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import { Plus } from 'lucide-react';
 import Sidebar, { Screen } from '@/components/Sidebar';
@@ -14,16 +14,20 @@ import MemoryScreen from '@/screens/MemoryScreen';
 import DocsScreen from '@/screens/DocsScreen';
 import TeamScreen from '@/screens/TeamScreen';
 import OfficeScreen from '@/screens/OfficeScreen';
-import { 
-  initialTasks, 
-  initialCronJobs, 
-  initialProjects, 
-  initialMemoryEntries, 
-  initialLongTermMemory,
-  initialDocuments,
-  initialAgents,
-  missionStatement 
-} from '@/lib/data';
+import MoltyPanel from '@/components/MoltyPanel';
+import OpenClawPage from '@/app/openclaw/page';
+
+const screenMap: Record<string, Screen> = {
+  'tasks': 'tasks',
+  'calendar': 'calendar',
+  'projects': 'projects',
+  'memory': 'memory',
+  'docs': 'docs',
+  'team': 'team',
+  'office': 'office',
+  'molty': 'molty',
+  'openclaw': 'openclaw',
+};
 
 export default function Home() {
   const [activeScreen, setActiveScreen] = useState<Screen>('tasks');
@@ -37,28 +41,68 @@ export default function Home() {
     return () => window.removeEventListener('open-quick-add', handleQuickAdd);
   }, []);
 
+  // Global keyboard shortcuts
+  const handleKeyDown = useCallback((e: KeyboardEvent) => {
+    // Only handle if not in input
+    if (['INPUT', 'TEXTAREA'].includes((e.target as HTMLElement).tagName)) return;
+    
+    const key = e.key.toLowerCase();
+    const isMod = e.metaKey || e.ctrlKey;
+
+    if (isMod && key === 'n') {
+      e.preventDefault();
+      setQuickAddOpen(true);
+    }
+  }, []);
+
+  useEffect(() => {
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [handleKeyDown]);
+
   const handleNavigate = (path: string) => {
-    router.push(path);
+    // Map path to screen
+    const screenMap: Record<string, Screen> = {
+      '/tasks': 'tasks',
+      '/calendar': 'calendar',
+      '/projects': 'projects',
+      '/memory': 'memory',
+      '/docs': 'docs',
+      '/team': 'team',
+      '/office': 'office',
+      '/molty': 'molty',
+    };
+    
+    const screen = screenMap[path];
+    if (screen) {
+      setActiveScreen(screen);
+    } else {
+      router.push(path);
+    }
   };
 
   const renderScreen = () => {
     switch (activeScreen) {
       case 'tasks':
-        return <TaskBoard tasks={initialTasks} />;
+        return <TaskBoard />;
       case 'calendar':
-        return <CalendarScreen cronJobs={initialCronJobs} />;
+        return <CalendarScreen />;
       case 'projects':
-        return <ProjectsScreen projects={initialProjects} />;
+        return <ProjectsScreen />;
       case 'memory':
-        return <MemoryScreen memoryEntries={initialMemoryEntries} longTermMemory={initialLongTermMemory} />;
+        return <MemoryScreen />;
       case 'docs':
-        return <DocsScreen documents={initialDocuments} />;
+        return <DocsScreen />;
       case 'team':
-        return <TeamScreen agents={initialAgents} missionStatement={missionStatement} />;
+        return <TeamScreen />;
       case 'office':
-        return <OfficeScreen agents={initialAgents} />;
+        return <OfficeScreen />;
+      case 'molty':
+        return <MoltyPanel />;
+      case 'openclaw':
+        return <OpenClawPage />;
       default:
-        return <TaskBoard tasks={initialTasks} />;
+        return <TaskBoard />;
     }
   };
 

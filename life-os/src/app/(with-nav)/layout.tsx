@@ -8,6 +8,35 @@ import { usePathname } from 'next/navigation';
 import { Plus } from 'lucide-react';
 import "@/app/globals.css";
 
+import { ChevronRight } from 'lucide-react';
+import Link from 'next/link';
+
+function generateBreadcrumbs(pathname: string): { label: string; href: string }[] {
+  const paths = pathname.split('/').filter(Boolean);
+  const breadcrumbs = [{ label: 'Home', href: '/' }];
+  
+  let currentPath = '';
+  const labels: Record<string, string> = {
+    'studium': 'Studium',
+    'module': 'Module',
+    'klausuren': 'Klausuren',
+    'thesis': 'Masterarbeit',
+    'noten': 'Noten',
+    'unternehmen': 'Unternehmen',
+    'pathium': 'Pathium',
+    'celaris': 'Celaris',
+    'elysium': 'Elysium',
+  };
+  
+  paths.forEach((path) => {
+    currentPath += `/${path}`;
+    const label = labels[path] || path.charAt(0).toUpperCase() + path.slice(1);
+    breadcrumbs.push({ label, href: currentPath });
+  });
+  
+  return breadcrumbs;
+}
+
 function generateTitle(pathname: string): string {
   const titles: Record<string, string> = {
     '/': 'Command Center',
@@ -32,9 +61,11 @@ export default function RootLayout({
   const pathname = usePathname();
   const [quickAddOpen, setQuickAddOpen] = useState(false);
   const [title, setTitle] = useState('Command Center');
+  const [breadcrumbs, setBreadcrumbs] = useState<{ label: string; href: string }[]>([]);
 
   useEffect(() => {
     setTitle(generateTitle(pathname));
+    setBreadcrumbs(generateBreadcrumbs(pathname));
   }, [pathname]);
 
   useEffect(() => {
@@ -49,7 +80,7 @@ export default function RootLayout({
         <div className="flex h-screen overflow-hidden bg-[var(--bg-primary)]">
           <Navigation />
           <div className="flex-1 flex flex-col overflow-hidden">
-            <TopBar title={title} />
+            <TopBar title={title} breadcrumbs={breadcrumbs} />
             <main className="flex-1 overflow-y-auto">
               {children}
             </main>

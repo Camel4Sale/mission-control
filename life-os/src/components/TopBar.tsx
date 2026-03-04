@@ -1,24 +1,53 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Moon, Sun, Command, Bell, Settings, User, Search } from 'lucide-react';
+import { Moon, Sun, Command, Bell, Settings, User, Search, Cloud, CloudRain, CloudSun, Sun as SunIcon, ChevronRight } from 'lucide-react';
 import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 
 type Theme = 'dark' | 'light';
 
 interface TopBarProps {
   title: string;
+  breadcrumbs?: { label: string; href: string }[];
 }
 
-export default function TopBar({ title }: TopBarProps) {
+interface WeatherData {
+  temp: number;
+  condition: string;
+  location: string;
+}
+
+export default function TopBar({ title, breadcrumbs = [] }: TopBarProps) {
   const [theme, setTheme] = useState<Theme>('dark');
   const [showShortcuts, setShowShortcuts] = useState(false);
   const [time, setTime] = useState(new Date());
   const [searchOpen, setSearchOpen] = useState(false);
+  const [weather, setWeather] = useState<WeatherData | null>(null);
 
   useEffect(() => {
     const timer = setInterval(() => setTime(new Date()), 60000);
     return () => clearInterval(timer);
+  }, []);
+
+  // Fetch weather on mount
+  useEffect(() => {
+    const fetchWeather = async () => {
+      try {
+        const res = await fetch('https://wttr.in/Karlsruhe?format=j1');
+        const data = await res.json();
+        if (data.current_condition?.[0]) {
+          setWeather({
+            temp: parseInt(data.current_condition[0].temp_C),
+            condition: data.current_condition[0].weatherDesc[0].value,
+            location: 'Karlsruhe'
+          });
+        }
+      } catch (e) {
+        // Weather unavailable
+      }
+    };
+    fetchWeather();
   }, []);
 
   useEffect(() => {
@@ -58,8 +87,24 @@ export default function TopBar({ title }: TopBarProps) {
   return (
     <>
       <header className="h-14 bg-[var(--bg-secondary)] border-b border-[var(--border)] flex items-center justify-between px-4">
-        {/* Left: Title */}
+        {/* Left: Title + Breadcrumbs */}
         <div className="flex items-center gap-3">
+          {breadcrumbs.length > 0 && (
+            <div className="flex items-center gap-1.5 text-xs text-[var(--text-muted)]">
+              {breadcrumbs.map((crumb, i) => (
+                <span key={crumb.href} className="flex items-center gap-1.5">
+                  {i > 0 && <ChevronRight size={12} />}
+                  {i < breadcrumbs.length - 1 ? (
+                    <Link href={crumb.href} className="hover:text-[var(--text-primary)] transition-colors">
+                      {crumb.label}
+                    </Link>
+                  ) : (
+                    <span className="text-[var(--text-primary)]">{crumb.label}</span>
+                  )}
+                </span>
+              ))}
+            </div>
+          )}
           <h1 className="text-lg font-semibold">{title}</h1>
         </div>
 
@@ -74,6 +119,21 @@ export default function TopBar({ title }: TopBarProps) {
             <span>Search...</span>
             <kbd className="text-xs px-1.5 py-0.5 rounded bg-[var(--bg-secondary)]">⌘K</kbd>
           </button>
+
+          {/* Weather Widget */}
+          {weather && (
+            <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[var(--bg-tertiary)] text-xs">
+              {weather.condition.toLowerCase().includes('rain') ? (
+                <CloudRain size={14} className="text-[var(--celaris)]" />
+              ) : weather.condition.toLowerCase().includes('cloud') ? (
+                <Cloud size={14} className="text-[var(--text-muted)]" />
+              ) : (
+                <SunIcon size={14} className="text-[var(--celaris)]" />
+              )}
+              <span className="text-[var(--text-secondary)] font-medium">{weather.temp}°</span>
+              <span className="text-[var(--text-muted)]">{weather.location}</span>
+            </div>
+          )}
 
           {/* System Status */}
           <div className="flex items-center gap-2 px-3 py-1 rounded-lg bg-[var(--bg-tertiary)] text-xs">

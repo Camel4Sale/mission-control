@@ -2,7 +2,6 @@
 
 import { useState } from 'react';
 import OfficeScreen from '@/screens/OfficeScreen';
-import { initialAgents } from '@/lib/data';
 
 export default function OfficePage() {
   return (
@@ -11,7 +10,7 @@ export default function OfficePage() {
         <h1 className="text-2xl font-semibold">Office</h1>
         <p className="text-sm text-[var(--text-muted)]">Tools & Utilities</p>
       </div>
-      <OfficeScreen agents={initialAgents} />
+      <OfficeScreen />
     </div>
   );
 }

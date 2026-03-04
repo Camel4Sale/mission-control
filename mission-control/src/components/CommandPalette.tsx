@@ -30,6 +30,7 @@ export default function CommandPalette({ onNavigate }: CommandPaletteProps) {
     { id: 'docs', label: 'Docs', shortcut: 'G D', action: () => onNavigate('/docs'), icon: <FileText size={16} />, category: 'Navigation' },
     { id: 'team', label: 'Team', action: () => onNavigate('/team'), icon: <Users size={16} />, category: 'Navigation' },
     { id: 'office', label: 'Office', action: () => onNavigate('/office'), icon: <Building2 size={16} />, category: 'Navigation' },
+    { id: 'molty', label: 'Molty AI Status', shortcut: 'G A', action: () => onNavigate('/molty'), icon: <Brain size={16} className="text-[#6366f1]" />, category: 'Navigation' },
     // Quick Actions
     { id: 'new-task', label: 'Neue Task erstellen', shortcut: 'N', action: () => onNavigate('/tasks'), icon: <FolderKanban size={16} />, category: 'Actions' },
     { id: 'refresh', label: 'Refresh Data', shortcut: 'R', action: () => window.location.reload(), icon: <Search size={16} />, category: 'Actions' },

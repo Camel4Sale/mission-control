@@ -1,46 +1,28 @@
----
-summary: "Workspace template for TOOLS.md"
-read_when:
-  - Bootstrapping a workspace manually
----
-
 # TOOLS.md - Local Notes
 
 Skills define _how_ tools work. This file is for _your_ specifics — the stuff that's unique to your setup.
 
-## What Goes Here
+## Discord Bot
+- **Server:** https://discord.gg/UGkgpRFj
+- **Bot Token:** Konfiguriert in openclaw.json
+- **Features:** Messages, Reactions, Polls, Threads, Search
 
-Things like:
+## E-Mail (AgentMail)
+- **Inbox:** frailyouth829@agentmail.to
+- **Nutzung:** `himalaya` CLI
 
-- Camera names and locations
-- SSH hosts and aliases
-- Preferred voices for TTS
-- Speaker/room names
-- Device nicknames
-- Anything environment-specific
+## Browser Automation
+- **Tool:** agent-browser
+- **Befehle:** open, snapshot, click, fill, screenshot
 
-## Examples
+## PDF Editing
+- **Tool:** nano-pdf
+- **Befehle:** `nano-pdf edit <file> <page> "<instruction>"`
 
-```markdown
-### Cameras
+## AI Models
+- **FreeRide:** Wartet auf OpenRouter API Key
+- **Aktuelles Model:** minimax-m2.5:cloud
 
-- living-room → Main area, 180° wide angle
-- front-door → Entrance, motion-triggered
-
-### SSH
-
-- home-server → 192.168.1.100, user: admin
-
-### TTS
-
-- Preferred voice: "Nova" (warm, slightly British)
-- Default speaker: Kitchen HomePod
-```
-
-## Why Separate?
-
-Skills are shared. Your setup is yours. Keeping them apart means you can update skills without losing your notes, and share skills without leaking your infrastructure.
-
----
-
-Add whatever helps you do your job. This is your cheat sheet.
+## ClawHub Skills
+- discord, frontend-design, answeroverflow, free-ride, nano-pdf
+- weather, himalaya, github, healthcheck

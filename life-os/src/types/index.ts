@@ -237,3 +237,157 @@ export interface HealthStatus {
   message: string;
   metrics: Record<string, number | string>;
 }
+
+// ============================================
+// NEW: CRM, Finance, Projects, Docs, Team Types
+// ============================================
+
+// ---------- Shared Company Types ----------
+export interface CompanyContact {
+  id: string;
+  name: string;
+  email: string;
+  phone?: string;
+  role: string;
+  company?: string;
+  companyId?: string;
+  notes?: string;
+  createdAt: string;
+  lastContact?: string;
+}
+
+export interface Company {
+  id: string;
+  name: string;
+  type: 'b2b' | 'b2c' | 'partner' | 'supplier';
+  industry?: string;
+  website?: string;
+  address?: string;
+  contacts: string[]; // contact IDs
+  createdAt: string;
+}
+
+export interface Activity {
+  id: string;
+  type: 'call' | 'email' | 'meeting' | 'note' | 'task';
+  title: string;
+  description?: string;
+  contactId?: string;
+  companyId?: string;
+  projectId?: string;
+  date: string;
+  duration?: number; // minutes
+  outcome?: string;
+}
+
+// ---------- Finance Types ----------
+export interface Invoice {
+  id: string;
+  invoiceNumber: string;
+  type: 'invoice' | 'quote' | 'offer';
+  status: 'draft' | 'sent' | 'paid' | 'overdue' | 'cancelled';
+  customerId?: string;
+  projectId?: string;
+  items: { description: string; quantity: number; unitPrice: number; total: number }[];
+  subtotal: number;
+  tax: number;
+  total: number;
+  issueDate: string;
+  dueDate: string;
+  paidDate?: string;
+  notes?: string;
+}
+
+export interface Transaction {
+  id: string;
+  type: 'income' | 'expense';
+  category: string;
+  amount: number;
+  description: string;
+  date: string;
+  projectId?: string;
+  invoiceId?: string;
+  isRecurring?: boolean;
+}
+
+export interface FinancialSummary {
+  totalIncome: number;
+  totalExpenses: number;
+  netProfit: number;
+  pendingInvoices: number;
+  overdueInvoices: number;
+  period: 'month' | 'quarter' | 'year';
+}
+
+// ---------- Project Types ----------
+export interface Project {
+  id: string;
+  name: string;
+  description?: string;
+  status: 'planning' | 'active' | 'on-hold' | 'completed' | 'cancelled';
+  startDate: string;
+  endDate?: string;
+  deadline?: string;
+  budget?: number;
+  actualCost?: number;
+  teamMembers: string[]; // user/employee IDs
+  milestones: Milestone[];
+  contactId?: string;
+  companyId?: string;
+  createdAt: string;
+}
+
+export interface Milestone {
+  id: string;
+  title: string;
+  description?: string;
+  status: 'pending' | 'in-progress' | 'completed' | 'blocked';
+  dueDate: string;
+  completedDate?: string;
+  deliverables?: string[];
+}
+
+// ---------- Document Types ----------
+export interface Document {
+  id: string;
+  name: string;
+  type: 'contract' | 'quote' | 'invoice' | 'template' | 'report' | 'other';
+  category: string;
+  fileUrl?: string;
+  content?: string;
+  projectId?: string;
+  companyId?: string;
+  contactId?: string;
+  createdAt: string;
+  updatedAt: string;
+  tags?: string[];
+}
+
+// ---------- Team Types ----------
+export interface TeamMember {
+  id: string;
+  name: string;
+  email: string;
+  phone?: string;
+  role: string;
+  department?: string;
+  companyId?: string;
+  hourlyRate?: number;
+  availability?: number; // hours per week
+  skills?: string[];
+  avatar?: string;
+  joinedAt?: string;
+}
+
+export interface TeamTask {
+  id: string;
+  title: string;
+  description?: string;
+  assigneeId: string;
+  projectId?: string;
+  status: 'todo' | 'in-progress' | 'review' | 'done';
+  priority: 'low' | 'medium' | 'high' | 'urgent';
+  dueDate?: string;
+  estimatedHours?: number;
+  actualHours?: number;
+}

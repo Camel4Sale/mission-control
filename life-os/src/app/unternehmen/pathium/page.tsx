@@ -3,8 +3,9 @@
 import { useState, useEffect } from 'react';
 import { 
   Code, Zap, AlertTriangle, CheckCircle, Clock, 
-  Activity, Server, DollarSign, Users, ArrowUp, ArrowDown
+  Activity, Server, DollarSign, Users, ArrowUp, ArrowRight
 } from 'lucide-react';
+import Link from 'next/link';
 import { 
   fetchSprint, fetchJiraTickets, fetchDevOpsMetrics, 
   fetchPathiumFinancials, fetchProductMetrics, fetchSupportTickets 

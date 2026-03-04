@@ -1,15 +1,16 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
-import { usePathname, useRouter } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 import { 
   Command, GraduationCap, Building2, Sun, Home, 
-  Briefcase, LayoutGrid, Settings, ChevronRight,
+  Briefcase, LayoutGrid, Settings, ChevronRight, Play, Pause, RotateCcw,
   GraduationCap as KITIcon,
   Code as PathiumIcon,
   Zap as CelarisIcon,
-  Building as ElysiumIcon
+  Building as ElysiumIcon,
+  Timer
 } from 'lucide-react';
 
 const navigation = [
@@ -21,6 +22,10 @@ const navigation = [
     color: 'var(--kit)',
     items: [
       { name: 'Dashboard', href: '/studium' },
+      { name: 'Study Hub', href: '/studium/study', shortcut: 'G S' },
+      { name: 'Planer', href: '/studium/planer', shortcut: 'G L' },
+      { name: 'Datenbank', href: '/studium/datenbank', shortcut: 'G D' },
+      { name: 'Kalender', href: '/studium/kalender', shortcut: 'G K' },
       { name: 'Module', href: '/studium/module', shortcut: 'G M' },
       { name: 'Klausuren', href: '/studium/klausuren', shortcut: 'G K' },
       { name: 'Masterarbeit', href: '/studium/thesis', shortcut: 'G T' },
@@ -40,6 +45,120 @@ const navigation = [
     ]
   },
 ];
+
+// Focus Timer Component
+function FocusTimer() {
+  const [isOpen, setIsOpen] = useState(false);
+  const [minutes, setMinutes] = useState(25);
+  const [seconds, setSeconds] = useState(0);
+  const [isRunning, setIsRunning] = useState(false);
+  const [mode, setMode] = useState<'work' | 'break'>('work');
+
+  const modes = {
+    work: { label: 'Fokus', defaultTime: 25, color: '#6366f1' },
+    break: { label: 'Pause', defaultTime: 5, color: '#22c55e' }
+  };
+
+  useEffect(() => {
+    let interval: NodeJS.Timeout;
+    if (isRunning && (minutes > 0 || seconds > 0)) {
+      interval = setInterval(() => {
+        if (seconds === 0) {
+          if (minutes === 0) {
+            setIsRunning(false);
+            // Auto-switch mode
+            setMode(m => m === 'work' ? 'break' : 'work');
+            setMinutes(modes[mode === 'work' ? 'break' : 'work'].defaultTime);
+            setSeconds(0);
+          } else {
+            setMinutes(m => m - 1);
+            setSeconds(59);
+          }
+        } else {
+          setSeconds(s => s - 1);
+        }
+      }, 1000);
+    }
+    return () => clearInterval(interval);
+  }, [isRunning, minutes, seconds, mode]);
+
+  const reset = () => {
+    setIsRunning(false);
+    setMinutes(modes[mode].defaultTime);
+    setSeconds(0);
+  };
+
+  const toggleMode = () => {
+    setMode(m => m === 'work' ? 'break' : 'work');
+    setMinutes(modes[mode === 'work' ? 'break' : 'work'].defaultTime);
+    setSeconds(0);
+    setIsRunning(false);
+  };
+
+  const formatTime = (m: number, s: number) => 
+    `${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
+
+  if (!isOpen) {
+    return (
+      <button 
+        onClick={() => setIsOpen(true)}
+        className="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm text-[var(--text-secondary)] hover:bg-[var(--bg-hover)] hover:text-[var(--text-primary)] transition-colors"
+      >
+        <Timer size={16} />
+        <span>Focus Timer</span>
+      </button>
+    );
+  }
+
+  return (
+    <div className="mx-3 mb-3 p-4 rounded-xl bg-gradient-to-br from-[#6366f1]/20 to-[#8b5cf6]/20 border border-[var(--border)]">
+      <div className="flex items-center justify-between mb-3">
+        <div className="flex items-center gap-2">
+          <Timer size={16} style={{ color: modes[mode].color }} />
+          <span className="text-sm font-medium">{modes[mode].label}</span>
+        </div>
+        <button 
+          onClick={() => setIsOpen(false)}
+          className="text-xs text-[var(--text-muted)] hover:text-[var(--text-primary)]"
+        >
+          ✕
+        </button>
+      </div>
+      
+      <div className="text-center mb-4">
+        <div 
+          className="text-4xl font-bold font-mono"
+          style={{ color: modes[mode].color }}
+        >
+          {formatTime(minutes, seconds)}
+        </div>
+      </div>
+
+      <div className="flex items-center gap-2">
+        <button
+          onClick={() => setIsRunning(!isRunning)}
+          className="flex-1 flex items-center justify-center gap-2 py-2 rounded-lg text-sm font-medium transition-colors"
+          style={{ backgroundColor: modes[mode].color, color: 'white' }}
+        >
+          {isRunning ? <Pause size={14} /> : <Play size={14} />}
+          {isRunning ? 'Pause' : 'Start'}
+        </button>
+        <button
+          onClick={reset}
+          className="p-2 rounded-lg bg-[var(--bg-tertiary)] hover:bg-[var(--bg-hover)] transition-colors"
+        >
+          <RotateCcw size={14} />
+        </button>
+        <button
+          onClick={toggleMode}
+          className="px-3 py-2 rounded-lg text-xs font-medium bg-[var(--bg-tertiary)] hover:bg-[var(--bg-hover)] transition-colors"
+        >
+          {mode === 'work' ? 'Break' : 'Work'}
+        </button>
+      </div>
+    </div>
+  );
+}
 
 export default function Navigation() {
   const pathname = usePathname();
@@ -135,6 +254,9 @@ export default function Navigation() {
           ))}
         </ul>
       </nav>
+
+      {/* Focus Timer */}
+      <FocusTimer />
 
       {/* Footer */}
       <div className="p-3 border-t border-[var(--border)]">
