@@ -120,7 +120,7 @@ function Header() {
             {[
               { href: '/celaris', label: 'Startseite' },
               { href: '/celaris/leistungen', label: 'Leistungen' },
- label: 'Le              { href: '/celaris/projekte', label: 'Projekte' },
+{ href: '/celaris/projekte', label: 'Projekte' },
               { href: '/celaris/kontakt', label: 'Kontakt' },
             ].map((item) => (
               <Link

@@ -780,3 +780,4 @@ export default function StudyPage() {
     </div>
   );
 }
+
