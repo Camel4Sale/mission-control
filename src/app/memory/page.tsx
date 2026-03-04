@@ -14,7 +14,7 @@ export default function MemoryPage() {
         <h1 className="text-2xl font-semibold">Memory</h1>
         <p className="text-sm text-[var(--text-muted)]">Langzeitgedächtnis</p>
       </div>
-      <MemoryScreen memoryEntries={memoryEntries} longTermMemory={longTermMemory} />
+      <MemoryScreen />
     </div>
   );
 }

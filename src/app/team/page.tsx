@@ -13,7 +13,7 @@ export default function TeamPage() {
         <h1 className="text-2xl font-semibold">Team</h1>
         <p className="text-sm text-[var(--text-muted)]">Agenten & Tools</p>
       </div>
-      <TeamScreen agents={agents} missionStatement={missionStatement} />
+      <TeamScreen />
     </div>
   );
 }

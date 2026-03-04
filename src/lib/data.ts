@@ -144,6 +144,7 @@ export const initialDocuments: Document[] = [
     title: 'Onboarding Zusammenfassung',
     content: 'Komplette Einrichtung vom 2026-03-03. Alle kritischen Security Issues behoben.',
     category: 'onboarding',
+    folder: 'docs',
     createdAt: '2026-03-03',
     tags: ['setup', 'security', 'onboarding']
   },
@@ -152,6 +153,7 @@ export const initialDocuments: Document[] = [
     title: 'Skills & Tools Liste',
     content: 'Aktive Skills: weather, himalaya, github, healthcheck, summarize. Installierte Tools: gh, yt-dlp.',
     category: 'setup',
+    folder: 'docs',
     createdAt: '2026-03-03',
     tags: ['skills', 'tools', 'configuration']
   }

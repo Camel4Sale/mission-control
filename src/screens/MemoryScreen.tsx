@@ -1,19 +1,21 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { MemoryEntry, LongTermMemory } from '@/types';
 import { Brain, BookOpen, Calendar, ChevronRight, Search, Plus, Tag, Lightbulb, MessageSquare, CheckCircle } from 'lucide-react';
 import { format } from 'date-fns';
 import { de } from 'date-fns/locale';
 
 interface MemoryScreenProps {
-  memoryEntries: MemoryEntry[];
-  longTermMemory: LongTermMemory[];
+  memoryEntries?: MemoryEntry[];
+  longTermMemory?: LongTermMemory[];
 }
 
-export default function MemoryScreen({ memoryEntries, longTermMemory }: MemoryScreenProps) {
-  const [activeTab, setActiveTab] = useState<'daily' | 'longterm'>('daily');
+export default function MemoryScreen({ memoryEntries: propMemoryEntries, longTermMemory: propLongTermMemory }: MemoryScreenProps) {
+  const [memoryEntries, setMemoryEntries] = useState<MemoryEntry[]>(propMemoryEntries || []);
+  const [longTermMemory, setLongTermMemory] = useState<LongTermMemory[]>(propLongTermMemory || []);
   const [searchQuery, setSearchQuery] = useState('');
+  const [activeTab, setActiveTab] = useState<'daily' | 'longterm'>('daily');
 
   // Group memory entries by date
   const groupedEntries = memoryEntries.reduce((acc, entry) => {

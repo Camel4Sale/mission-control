@@ -13,7 +13,7 @@ export default function ProjectsPage() {
         <h1 className="text-2xl font-semibold">Projects</h1>
         <p className="text-sm text-[var(--text-muted)]">Projektübersicht</p>
       </div>
-      <ProjectsScreen projects={projects} />
+      <ProjectsScreen />
     </div>
   );
 }

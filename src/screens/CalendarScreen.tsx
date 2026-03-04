@@ -211,10 +211,9 @@ export default function CalendarScreen() {
     setModalOpen(true);
   };
 
-  const handleEventClick = (e: CalendarEvent, date: Date) => {
-    e.stopPropagation();
+  const handleEventClick = (event: CalendarEvent, date: Date) => {
     setSelectedDate(date);
-    setEditingEvent(e);
+    setEditingEvent(event);
     setModalOpen(true);
   };
 
@@ -338,7 +337,7 @@ export default function CalendarScreen() {
                 <button
                   key={day.toISOString()}
                   onClick={() => { setSelectedDate(day); handleDateClick(day); }}
-                  className={`min-h-[80px] p-1 border-r border-b border-[var(--var(--border))] text-left transition-colors relative ${
+                  className={`min-h-[80px] p-1 border-r border-b border-[var(--border)] text-left transition-colors relative ${
                     isSelected 
                       ? 'bg-[var(--accent-muted)]' 
                       : isCurrentMonth ? 'hover:bg-[var(--bg-hover)]' : 'bg-[var(--bg-tertiary)]/50'

@@ -1,8 +1,18 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Syne, Outfit } from "next/font/google";
 import "./globals.css";
 
-const inter = Inter({ subsets: ["latin"] });
+const syne = Syne({ 
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700", "800"],
+  variable: "--font-display",
+});
+
+const outfit = Outfit({ 
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700"],
+  variable: "--font-body",
+});
 
 export const metadata: Metadata = {
   title: "Mission Control",
@@ -15,8 +25,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="de">
-      <body className={inter.className}>{children}</body>
+    <html lang="de" data-theme="dark">
+      <body className={`${syne.variable} ${outfit.variable}`}>
+        {children}
+      </body>
     </html>
   );
 }

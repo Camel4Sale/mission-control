@@ -1,19 +1,20 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Document } from '@/types';
 import { FileText, Search, Tag, Plus, FolderOpen, ChevronRight, ExternalLink } from 'lucide-react';
 import { format } from 'date-fns';
 import { de } from 'date-fns/locale';
 
 interface DocsScreenProps {
-  documents: Document[];
+  documents?: Document[];
 }
 
-export default function DocsScreen({ documents }: DocsScreenProps) {
-  const [searchQuery, setSearchQuery] = useState('');
+export default function DocsScreen({ documents: propDocuments }: DocsScreenProps) {
+  const [documents, setDocuments] = useState<Document[]>(propDocuments || []);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [selectedDoc, setSelectedDoc] = useState<Document | null>(null);
+  const [searchQuery, setSearchQuery] = useState('');
 
   const categories = [
     { id: 'onboarding', label: 'Onboarding', icon: '🚀' },
