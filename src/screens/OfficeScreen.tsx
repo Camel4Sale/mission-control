@@ -362,7 +362,7 @@ export default function OfficeScreen() {
               <button
                 onClick={() => setSelectedFolder(null)}
                 className={`w-full text-left px-3 py-2 rounded flex items-center gap-2 ${
-                  !selectedFolder ? 'bg-[var(--accent-muted)] text-[var : 'hover(--accent)]':bg-[var(--bg-hover)]'
+                  !selectedFolder ? 'bg-[var(--accent-muted)] text-[var(--accent)]' : 'hover(--accent) bg-[var(--bg-hover)]'
                 }`}
               >
                 <Building2 size={14} />

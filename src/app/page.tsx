@@ -15,6 +15,7 @@ import DocsScreen from '@/screens/DocsScreen';
 import TeamScreen from '@/screens/TeamScreen';
 import OfficeScreen from '@/screens/OfficeScreen';
 import MoltyPanel from '@/components/MoltyPanel';
+import OpenClawPage from '@/app/openclaw/page';
 import { 
   initialTasks, 
   initialCronJobs, 
@@ -35,6 +36,7 @@ const screenMap: Record<string, Screen> = {
   'team': 'team',
   'office': 'office',
   'molty': 'molty',
+  'openclaw': 'openclaw',
 };
 
 export default function Home() {
@@ -107,6 +109,8 @@ export default function Home() {
         return <OfficeScreen agents={initialAgents} />;
       case 'molty':
         return <MoltyPanel />;
+      case 'openclaw':
+        return <OpenClawPage />;
       default:
         return <TaskBoard tasks={initialTasks} />;
     }

@@ -344,8 +344,8 @@ export default function ProjectsScreen() {
           <div className="flex items-center gap-2 text-sm">
             <span className="text-[var(--text-muted)]">Gesamt:</span>
             <span className="font-medium">{projects.length}</span>
-          <div className </div>
-         ="flex items-center gap-2 text-sm">
+          </div>
+          <div className="flex items-center gap-2 text-sm">
             <span className="text-[var(--success)]">●</span>
             <span>{activeProjects.length} aktiv</span>
           </div>

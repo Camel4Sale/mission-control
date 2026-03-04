@@ -11,10 +11,11 @@ import {
   Building2,
   Settings,
   X,
-  Bot
+  Bot,
+  Activity
 } from 'lucide-react';
 
-export type Screen = 'tasks' | 'calendar' | 'projects' | 'memory' | 'docs' | 'team' | 'office' | 'molty';
+export type Screen = 'tasks' | 'calendar' | 'projects' | 'memory' | 'docs' | 'team' | 'office' | 'molty' | 'openclaw';
 
 interface SidebarProps {
   activeScreen: Screen;
@@ -30,6 +31,7 @@ const menuItems: { id: Screen; label: string; icon: React.ReactNode; shortcut: s
   { id: 'team', label: 'Team', icon: <Users size={18} />, shortcut: '' },
   { id: 'office', label: 'Office', icon: <Building2 size={18} />, shortcut: '' },
   { id: 'molty', label: 'Molty AI', icon: <Bot size={18} className="text-[#6366f1]" />, shortcut: 'G A' },
+  { id: 'openclaw', label: 'OpenClaw', icon: <Activity size={18} className="text-[#10b981]" />, shortcut: 'G O' },
 ];
 
 export default function Sidebar({ activeScreen, onScreenChange }: SidebarProps) {
