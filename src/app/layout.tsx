@@ -1,17 +1,10 @@
 import type { Metadata } from "next";
-import { Syne, Outfit } from "next/font/google";
+import { Inter } from "next/font/google";
 import "./globals.css";
 
-const syne = Syne({ 
+const inter = Inter({ 
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700", "800"],
-  variable: "--font-display",
-});
-
-const outfit = Outfit({ 
-  subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
-  variable: "--font-body",
+  variable: "--font-sans",
 });
 
 export const metadata: Metadata = {
@@ -26,7 +19,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="de" data-theme="dark">
-      <body className={`${syne.variable} ${outfit.variable}`}>
+      <body className={inter.variable}>
         {children}
       </body>
     </html>
