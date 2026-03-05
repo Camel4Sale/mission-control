@@ -742,9 +742,9 @@ export default function StudyPage() {
           <div className="text-center">
             <p className="text-lg font-bold text-[#f59e0b]">12</p>
             <p className="text-[10px] text-[var(--text-muted)]">Karten fällig</p>
+          </div>
           <div className="text-center">
-            <p className="text-lg font</div>
-          -bold text-[#06b6d4]">3</p>
+            <p className="text-lg font-bold text-[#06b6d4]">3</p>
             <p className="text-[10px] text-[var(--text-muted)]">Module aktiv</p>
           </div>
         </div>

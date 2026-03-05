@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { useParams, useRouter } from 'next/navigation';
+import { useParams, useRouter, usePathname } from 'next/navigation';
 import Link from 'next/link';
 import { 
   Sun, Building, Code, Users, FileText, DollarSign, 
