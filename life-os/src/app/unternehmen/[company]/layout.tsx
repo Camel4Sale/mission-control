@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { useParams, useRouter, usePathname } from 'next/navigation';
+import { useParams, usePathname } from 'next/navigation';
 import Link from 'next/link';
 import { 
   Sun, Building, Code, Users, FileText, DollarSign, 
@@ -34,7 +34,7 @@ const sections = [
 
 export default function CompanyLayout({ children }: { children: React.ReactNode }) {
   const params = useParams();
-  const router = useRouter();
+  const pathname = usePathname();
   const company = params.company as string;
   const config = companyConfig[company];
   const Icon = config?.icon || Sun;
@@ -75,7 +75,7 @@ export default function CompanyLayout({ children }: { children: React.ReactNode 
               key={section.id}
               href={`/unternehmen/${company}/${section.id}`}
               className={`flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-colors ${
-                router.asPath.includes(`/${section.id}`)
+                pathname?.includes(`/${section.id}`)
                   ? 'bg-[var(--bg-hover)] text-[var(--text)]'
                   : 'text-[var(--text-muted)] hover:bg-[var(--bg-hover)] hover:text-[var(--text)]'
               }`}

@@ -443,7 +443,7 @@ export const fetchTeamTasks = async (company?: string): Promise<TeamTask[]> => {
     { id: 'tt5', title: 'Dashboard Charts implementieren', assigneeId: 'tm5', projectId: 'proj8', status: 'in-progress', priority: 'high', dueDate: '2026-03-10', estimatedHours: 8, actualHours: 5 },
     { id: 'tt6', title: 'API Tests schreiben', assigneeId: 'tm6', projectId: 'proj8', status: 'todo', priority: 'medium', dueDate: '2026-03-12', estimatedHours: 6 },
     { id: 'tt7', title: 'CI/CD Pipeline optimieren', description: 'Build Times reduzieren', assigneeId: 'tm7', status: 'todo', priority: 'low', estimatedHours: 4 },
-    { id: 'tt8', title: 'Support Ticket Acme', assigneeId: 'tm8', status: 'done', priority: 'critical', dueDate: '2026-03-03', estimatedHours: 2, actualHours: 2.5 },
+    { id: 'tt8', title: 'Support Ticket Acme', assigneeId: 'tm8', status: 'done', priority: 'urgent', dueDate: '2026-03-03', estimatedHours: 2, actualHours: 2.5 },
   ];
   if (company) {
     const companyMap: Record<string, string[]> = { celaris: ['tt1', 'tt2', 'tt3'], elysium: ['tt4'], pathium: ['tt5', 'tt6', 'tt7', 'tt8'] };

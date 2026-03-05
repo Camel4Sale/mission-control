@@ -1,9 +1,11 @@
 /* ============================================
    MISSION CONTROL - BOLD DESIGN SYSTEM V4
    Distinctive. Unforgettable. Production-Ready.
+   
+   FONTS: Loaded via next/font/google in layout.tsx
+   - Syne (Display) - Bold, distinctive, unique
+   - Outfit (Body) - Clean, modern, geometric
    ============================================ */
-
-@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Outfit:wght@300;400;500;600;700&display=swap');
 
 @tailwind base;
 @tailwind components;

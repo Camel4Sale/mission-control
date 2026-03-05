@@ -1,9 +1,11 @@
 /* ============================================
    LIFE OS - BOLD DESIGN SYSTEM V4
    Distinctive. Organic. Production-Ready.
+   
+   FONTS: Loaded via next/font/google in layout.tsx
+   - Fraunces (Display) - Warm, elegant, variable
+   - Plus Jakarta Sans (Body) - Modern, geometric
    ============================================ */
-
-@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=General+Sans:wght@400;500;600;700&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -102,7 +104,7 @@
   
   /* ─── TYPOGRAPHY - ELEGANT ORGANIC ─── */
   --font-display: 'Fraunces', serif;
-  --font-body: 'General Sans', sans-serif;
+  --font-body: 'Plus Jakarta Sans', sans-serif;
   --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
   
   /* ─── TRANSITIONS ─── */

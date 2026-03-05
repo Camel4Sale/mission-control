@@ -1,0 +1,61 @@
+{
+  "version": 1,
+  "skills": {
+    "self-improving-agent": {
+      "version": "1.0.11",
+      "installedAt": 1772568504131
+    },
+    "mcporter": {
+      "version": "1.0.0",
+      "installedAt": 1772568666342
+    },
+    "automation-workflows": {
+      "version": "0.1.0",
+      "installedAt": 1772568798165
+    },
+    "auto-updater": {
+      "version": "1.0.0",
+      "installedAt": 1772568840460
+    },
+    "model-usage": {
+      "version": "1.0.0",
+      "installedAt": 1772568901903
+    },
+    "youtube-transcript": {
+      "version": "1.0.1",
+      "installedAt": 1772599038498
+    },
+    "agentmail": {
+      "version": "1.1.1",
+      "installedAt": 1772613191635
+    },
+    "discord": {
+      "version": "1.0.1",
+      "installedAt": 1772619210598
+    },
+    "frontend-design": {
+      "version": "1.0.0",
+      "installedAt": 1772619578064
+    },
+    "answeroverflow": {
+      "version": "1.0.2",
+      "installedAt": 1772619689694
+    },
+    "free-ride": {
+      "version": "1.0.4",
+      "installedAt": 1772619747584
+    },
+    "nano-pdf": {
+      "version": "1.0.0",
+      "installedAt": 1772619832384
+    },
+    "byterover": {
+      "version": "2.0.0",
+      "installedAt": 1772626203691
+    },
+    "clawdhub": {
+      "version": "1.0.0",
+      "installedAt": 1772627956356
+    }
+  }
+}
