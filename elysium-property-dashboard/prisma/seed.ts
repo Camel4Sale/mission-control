@@ -91,6 +91,7 @@ async function main() {
           deposit: 2100,
           status: LeaseStatus.ACTIVE,
           renewalDate: new Date('2027-02-28'),
+          noticePeriod: 3,
         }
       }
     }
@@ -151,6 +152,7 @@ async function main() {
           monthlyRent: 2400,
           deposit: 4800,
           status: LeaseStatus.ACTIVE,
+          noticePeriod: 3,
         }
       }
     }
@@ -202,6 +204,7 @@ async function main() {
           monthlyRent: 1680,
           deposit: 3360,
           status: LeaseStatus.ACTIVE,
+          noticePeriod: 3,
         }
       }
     }

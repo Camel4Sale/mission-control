@@ -1,8 +1,8 @@
-import { Hero } from '@/components/Hero'
-import { ServicesGrid } from '@/components/ServicesGrid'
-import { PortfolioShowcase } from '@/components/PortfolioShowcase'
-import { Testimonials } from '@/components/Testimonials'
-import { ContactForm } from '@/components/ContactForm'
+import Hero from '@/components/Hero'
+import ServicesGrid from '@/components/ServicesGrid'
+import PortfolioShowcase from '@/components/PortfolioShowcase'
+import Testimonials from '@/components/Testimonials'
+import ContactForm from '@/components/ContactForm'
 import { ArrowRight, Code, Brain, Smartphone, LineChart } from 'lucide-react'
 
 const services = [
