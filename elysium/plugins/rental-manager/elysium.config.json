@@ -1,0 +1,133 @@
+{
+  "name": "rental-manager",
+  "displayName": "Vermieter-Toolkit",
+  "version": "1.0.0",
+  "description": "Komplettes Vermieter-Toolkit mit Mietvertrag-Generator, Nebenkosten-Abrechnung, Mieteingänge-Tracker, Mängelmelder, Handwerker-Verwaltung und Mieter-Screening",
+  "author": "Elysium Platform",
+  "license": "PROPRIETARY",
+  "category": "property-management",
+  "icon": "Home",
+  "color": "#0ea5e9",
+  "features": [
+    {
+      "id": "contracts",
+      "name": "Mietvertrag-Generator",
+      "description": "Rechtssichere Mietverträge für Wohnung, Haus und Gewerbe in mehreren Sprachen",
+      "icon": "FileText"
+    },
+    {
+      "id": "utility-bills",
+      "name": "Nebenkosten-Abrechnung",
+      "description": "Automatisierte Nebenkostenabrechnung mit Belegverwaltung",
+      "icon": "Euro"
+    },
+    {
+      "id": "payments",
+      "name": "Mieteingänge-Tracker",
+      "description": "Bank-Integration, Auto-Matching und Mahnwesen",
+      "icon": "Euro"
+    },
+    {
+      "id": "defects",
+      "name": "Mängelmelder",
+      "description": "Mieter-Portal für Mängelmeldungen mit Foto-Upload",
+      "icon": "AlertTriangle"
+    },
+    {
+      "id": "craftsmen",
+      "name": "Handwerker-Verwaltung",
+      "description": "Kontakte, Bewertungen und Einsatz-Historie",
+      "icon": "Wrench"
+    },
+    {
+      "id": "screening",
+      "name": "Mieter-Screening",
+      "description": "SCHUFA-Integration und Bonitätsprüfung",
+      "icon": "Users"
+    },
+    {
+      "id": "properties",
+      "name": "Objekt-Verwaltung",
+      "description": "Alle Objekte mit Dokumenten und Wertentwicklung",
+      "icon": "Home"
+    }
+  ],
+  "permissions": [
+    "banking-api",
+    "schufa-api",
+    "pdf-generation",
+    "file-upload",
+    "email-sending"
+  ],
+  "integrations": [
+    {
+      "name": "FinTS",
+      "description": "Banking-API für deutsche Banken",
+      "required": false
+    },
+    {
+      "name": "SCHUFA",
+      "description": "Bonitätsauskunft",
+      "required": false
+    }
+  ],
+  "routes": [
+    {
+      "path": "/plugins/rental-manager",
+      "component": "Dashboard",
+      "title": "Rental Manager"
+    },
+    {
+      "path": "/plugins/rental-manager/properties",
+      "component": "PropertyManager",
+      "title": "Objekte"
+    },
+    {
+      "path": "/plugins/rental-manager/contracts",
+      "component": "ContractGenerator",
+      "title": "Verträge"
+    },
+    {
+      "path": "/plugins/rental-manager/utility-bills",
+      "component": "UtilityBillCreator",
+      "title": "Nebenkosten"
+    },
+    {
+      "path": "/plugins/rental-manager/payments",
+      "component": "RentTracker",
+      "title": "Zahlungen"
+    },
+    {
+      "path": "/plugins/rental-manager/defects",
+      "component": "DefectReporter",
+      "title": "Mängel"
+    },
+    {
+      "path": "/plugins/rental-manager/craftsmen",
+      "component": "CraftsmenManager",
+      "title": "Handwerker"
+    },
+    {
+      "path": "/plugins/rental-manager/screening",
+      "component": "TenantScreening",
+      "title": "Mieter-Screening"
+    }
+  ],
+  "settings": {
+    "banking": {
+      "enabled": false,
+      "bankCode": "",
+      "accountNumber": "",
+      "accountHolder": ""
+    },
+    "schufa": {
+      "enabled": false,
+      "apiKey": ""
+    },
+    "notifications": {
+      "email": true,
+      "push": true,
+      "reminderDays": 7
+    }
+  }
+}

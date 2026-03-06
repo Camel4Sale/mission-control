@@ -1,0 +1,48 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Grade {
+  id        String   @id @default(uuid())
+  moduleId  String
+  moduleName String
+  grade     Float
+  semester  String
+  ects      Int
+  createdAt DateTime @default(now())
+  anonymous Boolean  @default(true)
+  userId    String?
+  
+  @@index([moduleId])
+  @@index([semester])
+}
+
+model Professor {
+  id        String   @id @default(uuid())
+  name      String
+  moduleId  String
+  rating    Float    @default(0)
+  reviews   Int      @default(0)
+  difficulty Float   @default(0)
+  createdAt DateTime @default(now())
+  
+  @@index([moduleId])
+}
+
+model ModuleStats {
+  id            String   @id @default(uuid())
+  moduleId      String   @unique
+  moduleName    String
+  averageGrade  Float
+  studentCount  Int
+  semester      String
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  
+  @@index([semester])
+}

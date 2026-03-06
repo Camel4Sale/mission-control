@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Markets - Polymarket Dashboard</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="markets.css">
+</head>
+<body>
+    <div class="app">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="logo">
+                <div class="logo-icon">⚡</div>
+                <span class="logo-text">PolyBot</span>
+            </div>
+            
+            <nav class="nav-menu">
+                <a href="index.html" class="nav-item">
+                    <span class="nav-icon">📊</span>
+                    <span class="nav-label">Dashboard</span>
+                </a>
+                <a href="#" class="nav-item active" data-page="markets">
+                    <span class="nav-icon">🌐</span>
+                    <span class="nav-label">Markets</span>
+                </a>
+                <a href="#" class="nav-item" data-page="strategies">
+                    <span class="nav-icon">🎯</span>
+                    <span class="nav-label">Strategies</span>
+                </a>
+                <a href="#" class="nav-item" data-page="analytics">
+                    <span class="nav-icon">📈</span>
+                    <span class="nav-label">Analytics</span>
+                </a>
+            </nav>
+            
+            <div class="sidebar-footer">
+                <div class="connection-status">
+                    <span class="status-dot online"></span>
+                    <span class="status-text">Connected</span>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content markets-page">
+            <!-- Header -->
+            <header class="header">
+                <div class="header-left">
+                    <h1 class="page-title">Markets</h1>
+                    <span class="last-updated">Live Feed • <span class="timestamp">Just now</span></span>
+                </div>
+                <div class="header-right">
+                    <div class="search-box">
+                        <span class="search-icon">🔍</span>
+                        <input type="text" placeholder="Search markets..." class="search-input">
+                        <kbd>⌘K</kbd>
+                    </div>
+                    <button class="btn btn-primary">
+                        <span>⚡</span> Quick Trade
+                    </button>
+                </div>
+            </header>
+
+            <!-- Filters & Sort -->
+            <section class="filters-section">
+                <div class="filter-group">
+                    <label class="filter-label">Category</label>
+                    <select class="filter-select">
+                        <option value="all">All Categories</option>
+                        <option value="politics">Politics</option>
+                        <option value="crypto">Crypto</option>
+                        <option value="sports">Sports</option>
+                        <option value="entertainment">Entertainment</option>
+                        <option value="climate">Climate</option>
+                        <option value="economics">Economics</option>
+                    </select>
+                </div>
+                
+                <div class="filter-group">
+                    <label class="filter-label">End Date</label>
+                    <select class="filter-select">
+                        <option value="all">Any Time</option>
+                        <option value="24h">Next 24 Hours</option>
+                        <option value="7d">Next 7 Days</option>
+                        <option value="30d">Next 30 Days</option>
+                    </select>
+                </div>
+                
+                <div class="filter-group">
+                    <label class="filter-label">Min Volume</label>
+                    <select class="filter-select">
+                        <option value="0">Any</option>
+                        <option value="10000">$10K+</option>
+                        <option value="50000">$50K+</option>
+                        <option value="100000">$100K+</option>
+                    </select>
+                </div>
+                
+                <div class="sort-group">
+                    <label class="filter-label">Sort By</label>
+                    <div class="sort-options">
+                        <button class="sort-btn active" data-sort="volume">
+                            <span>📊</span> Volume
+                        </button>
+                        <button class="sort-btn" data-sort="liquidity">
+                            <span>💧</span> Liquidity
+                        </button>
+                        <button class="sort-btn" data-sort="change">
+                            <span>📈</span> 24h Change
+                        </button>
+                        <button class="sort-btn" data-sort="ending">
+                            <span>⏰</span> Ending Soon
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Opportunity Alerts -->
+            <section class="alerts-section">
+                <div class="alert-card arbitrage">
+                    <div class="alert-icon">💎</div>
+                    <div class="alert-content">
+                        <div class="alert-title">Arbitrage Opportunity</div>
+                        <div class="alert-description">
+                            <span class="market-name">BTC > $100K</span>
+                            <span class="alert-spread">Spread: 4.2¢</span>
+                            <span class="alert-profit">Potential: +$420</span>
+                        </div>
+                    </div>
+                    <button class="btn btn-sm btn-ghost">Trade</button>
+                </div>
+                
+                <div class="alert-card high-volume">
+                    <div class="alert-icon">🔥</div>
+                    <div class="alert-content">
+                        <div class="alert-title">High Volume Market</div>
+                        <div class="alert-description">
+                            <span class="market-name">Election Winner</span>
+                            <span class="alert-volume">$2.4M volume</span>
+                            <span class="alert-change">+18% in 24h</span>
+                        </div>
+                    </div>
+                    <button class="btn btn-sm btn-ghost">Trade</button>
+                </div>
+                
+                <div class="alert-card ending-soon">
+                    <div class="alert-icon">⏱️</div>
+                    <div class="alert-content">
+                        <div class="alert-title">Ending Soon</div>
+                        <div class="alert-description">
+                            <span class="market-name">Fed Rate Decision</span>
+                            <span class="alert-time">Ends in 2h 34m</span>
+                            <span class="alert-volume">$847K volume</span>
+                        </div>
+                    </div>
+                    <button class="btn btn-sm btn-ghost">Trade</button>
+                </div>
+            </section>
+
+            <!-- Markets Grid -->
+            <section class="markets-section">
+                <div class="section-header">
+                    <h2 class="section-title">
+                        <span>🌐</span> Active Markets
+                    </h2>
+                    <div class="section-info">
+                        <span class="market-count">147 markets</span>
+                        <span class="divider">•</span>
+                        <span class="total-volume">$12.4M total volume</span>
+                    </div>
+                </div>
+                
+                <div class="markets-grid">
+                    <!-- Market Card 1 -->
+                    <div class="market-card" data-category="crypto">
+                        <div class="market-card-header">
+                            <div class="market-category">Crypto</div>
+                            <div class="market-badge hot">🔥 Hot</div>
+                        </div>
+                        <div class="market-card-title">
+                            <span class="market-emoji">₿</span>
+                            <h3>Bitcoin > $100,000 by end of 2024</h3>
+                        </div>
+                        <div class="market-card-chart">
+                            <div class="mini-chart">
+                                <svg viewBox="0 0 100 30" class="chart-svg">
+                                    <polyline points="0,25 10,22 20,18 30,20 40,15 50,12 60,14 70,10 80,8 90,5 100,3" 
+                                              fill="none" stroke="#10b981" stroke-width="2"/>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="market-card-prices">
+                            <div class="price-option">
+                                <span class="option-label">YES</span>
+                                <span class="option-price">68¢</span>
+                                <div class="option-bar">
+                                    <div class="bar-fill" style="width: 68%"></div>
+                                </div>
+                            </div>
+                            <div class="price-option">
+                                <span class="option-label">NO</span>
+                                <span class="option-price">32¢</span>
+                                <div class="option-bar">
+                                    <div class="bar-fill" style="width: 32%"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="market-card-stats">
+                            <div class="stat">
+                                <span class="stat-label">Volume</span>
+                                <span class="stat-value">$847K</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-label">Liquidity</span>
+                                <span class="stat-value">$234K</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-label">24h</span>
+                                <span class="stat-value positive">+12%</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-label">Ends</span>
+                                <span class="stat-value">Dec 31</span>
+                            </div>
+                        </div>
+                        <div class="market-card-actions">
+                            <button class="btn btn-sm btn-yes">Buy YES</button>
+                            <button class="btn btn-sm btn-no">Buy NO</button>
+                        </div>
+                    </div>
+
+                    <!-- Market Card 2 -->
+                    <div class="market-card" data-category="politics">
+                        <div class="market-card-header">
+                            <div class="market-category">Politics</div>
+                            <div class="market-badge trending">📈 Trending</div>
+                        </div>
+                        <div class="market-card-title">
+                            <span class="market-emoji">🗳️</span>
+                            <h3>2024 Presidential Election Winner</h3>
+                        </div>
+                        <div class="market-card-chart">
+                            <div class="mini-chart">
+                                <svg viewBox="0 0 100 30" class="chart-svg">
+                                    <polyline points="0,15 10,14 20,12 30,13 40,10 50,8 60,9 70,7 80,5 90,4 100,3" 
+                                              fill="none" stroke="#10b981" stroke-width="2"/>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="market-card-prices">
+                            <div class="price-option">
+                                <span class="option-label">YES</span>
+                                <span class="option-price">52¢</span>
+                                <div class="option-bar">
+                                    <div class="bar-fill" style="width: 52%"></div>
+                                </div>
+                            </div>
+                            <div class="price-option">
+                                <span class="option-label">NO</span>
+                                <span class="option-price">48¢</span>
+                                <div class="option-bar">
+                                    <div class="bar-fill" style="width: 48%"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="market-card-stats">
+                            <div class="stat">
+                                <span class="stat-label">Volume</span>
+                                <span class="stat-value">$2.4M</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-label">Liquidity</span>
+                                <span class="stat-value">$892K</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-label">24h</span>
+                                <span class="stat-value positive">+8%</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-label">Ends</span>
+                                <span class="stat-value">Nov 5</span>
+                            </div>
+                        </div>
+                        <div class="market-card-actions">
+                            <button class="btn btn-sm btn-yes">Buy YES</button>
+                            <button class="btn btn-sm btn-no">Buy NO</button>
+                        </div>
+                    </div>
+
+                    <!-- Market Card 3 -->
+                    <div class="market-card" data-category="sports">
+                        <div class="market-card-header">
+                            <div class="market-category">Sports</div>
+                        </div>
+                        <div class="market-card-title">
+                            <span class="market-emoji">🏀</span>
+                            <h3>Lakers to win 2024 NBA Championship</h3>
+                        </div>
+                        <div class="market-card-chart">
+                            <div class="mini-chart">
+                                <svg viewBox="0 0 100 30" class="chart-svg">
+                                    <polyline points="0,10 10,12 20,15 30,18 40,20 50,22 60,24 70,25 80,26 90,27 100,28" 
+                                              fill="none" stroke="#f43f5e" stroke-width="2"/>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="market-card-prices">
+                            <div class="price-option">
+                                <span class="option-label">YES</span>
+                                <span class="option-price">24¢</span>
+                                <div class="option-bar">
+                                    <div class="bar-fill" style="width: 24%"></div>
+                                </div>
+                            </div>
+                            <div class="price-option">
+                                <span class="option-label">NO</span>
+                                <span class="option-price">76¢</span>
+                                <div class="option-bar">
+                                    <div class="bar-fill" style="width: 76%"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="market-card-stats">
+                            <div class="stat">
+                                <span class="stat-label">Volume</span>
+                                <span class="stat-value">$423K</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-label">Liquidity</span>
+                                <span class="stat-value">$156K</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-label">24h</span>
+                                <span class="stat-value negative">-5%</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-label">Ends</span>
+                                <span class="stat-value">Jun 15</span>
+                            </div>
+                        </div>
+                        <div class="market-card-actions">
+                            <button class="btn btn-sm btn-yes">Buy YES</button>
+                            <button class="btn btn-sm btn-no">Buy NO</button>
+                        </div>
+                    </div>
+
+                    <!-- Market Card 4 -->
+                    <div class="market-card" data-category="entertainment">
+                        <div class="market-card-header">
+                            <div class="market-category">Entertainment</div>
+                            <div class="market-badge resolved">✅ Resolved</div>
+                        </div>
+                        <div class="market-card-title">
+                            <span class="market-emoji">🎬</span>
+                            <h3>Oppenheimer to win Best Picture Oscar</h3>
+                        </div>
+                        <div class="market-card-chart">
+                            <div class="mini-chart">
+                                <svg viewBox="0 0 100 30" class="chart-svg">
+                                    <polyline points="0,20 10,18 20,15 30,12 40,8 50,5 60,3 70,2 80,1 90,0 100,0" 
+                                              fill="none" stroke="#10b981" stroke-width="2"/>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="market-card-prices">
+                            <div class="price-option">
+                                <span class="option-label">YES</span>
+                                <span class="option-price">100¢</span>
+                                <div class="option-bar">
+                                    <div class="bar-fill" style="width: 100%"></div>
+                                </div>
+                            </div>
+                            <div class="price-option">
+                                <span class="option-label">NO</span>
+                                <span class="option-price">0¢</span>
+                                <div class="option-bar">
+                                    <div class="bar-fill" style="width: 0%"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="market-card-stats">
+                            <div class="stat">
+                                <span class="stat-label">Volume</span>
+                                <span class="stat-value">$1.2M</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-label">Liquidity</span>
+                                <span class="stat-value">$0</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-label">24h</span>
+                                <span class="stat-value positive">+22%</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-label">Ended</span>
+                                <span class="stat-value">Mar 10</span>
+                            </div>
+                        </div>
+                        <div class="market-card-actions">
+                            <button class="btn btn-sm btn-ghost" disabled>Resolved</button>
+                        </div>
+                    </div>
+
+                    <!-- Market Card 5 -->
+                    <div class="market-card" data-category="economics">
+                        <div class="market-card-header">
+                            <div class="market-category">Economics</div>
+                            <div class="market-badge urgent">⏰ Ending Soon</div>
+                        </div>
+                        <div class="market-card-title">
+                            <span class="market-emoji">🏦</span>
+                            <h3>Fed to raise rates in next meeting</h3>
+                        </div>
+                        <div class="market-card-chart">
+                            <div class="mini-chart">
+                                <svg viewBox="0 0 100 30" class="chart-svg">
+                                    <polyline points="0,8 10,10 20,12 30,10 40,8 50,6 60,5 70,4 80,3 90,2 100,1" 
+                                              fill="none" stroke="#f43f5e" stroke-width="2"/>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="market-card-prices">
+                            <div class="price-option">
+                                <span class="option-label">YES</span>
+                                <span class="option-price">18¢</span>
+                                <div class="option-bar">
+                                    <div class="bar-fill" style="width: 18%"></div>
+                                </div>
+                            </div>
+                            <div class="price-option">
+                                <span class="option-label">NO</span>
+                                <span class="option-price">82¢</span>
+                                <div class="option-bar">
+                                    <div class="bar-fill" style="width: 82%"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="market-card-stats">
+                            <div class="stat">
+                                <span class="stat-label">Volume</span>
+                                <span class="stat-value">$847K</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-label">Liquidity</span>
+                                <span class="stat-value">$312K</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-label">24h</span>
+                                <span class="stat-value negative">-8%</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-label">Ends</span>
+                                <span class="stat-value">2h 34m</span>
+                            </div>
+                        </div>
+                        <div class="market-card-actions">
+                            <button class="btn btn-sm btn-yes">Buy YES</button>
+                            <button class="btn btn-sm btn-no">Buy NO</button>
+                        </div>
+                    </div>
+
+                    <!-- Market Card 6 -->
+                    <div class="market-card" data-category="climate">
+                        <div class="market-card-header">
+                            <div class="market-category">Climate</div>
+                        </div>
+                        <div class="market-card-title">
+                            <span class="market-emoji">🌡️</span>
+                            <h3>2024 to be hottest year on record</h3>
+                        </div>
+                        <div class="market-card-chart">
+                            <div class="mini-chart">
+                                <svg viewBox="0 0 100 30" class="chart-svg">
+                                    <polyline points="0,22 10,20 20,18 30,15 40,12 50,10 60,8 70,6 80,4 90,2 100,1" 
+                                              fill="none" stroke="#10b981" stroke-width="2"/>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="market-card-prices">
+                            <div class="price-option">
+                                <span class="option-label">YES</span>
+                                <span class="option-price">94¢</span>
+                                <div class="option-bar">
+                                    <div class="bar-fill" style="width: 94%"></div>
+                                </div>
+                            </div>
+                            <div class="price-option">
+                                <span class="option-label">NO</span>
+                                <span class="option-price">6¢</span>
+                                <div class="option-bar">
+                                    <div class="bar-fill" style="width: 6%"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="market-card-stats">
+                            <div class="stat">
+                                <span class="stat-label">Volume</span>
+                                <span class="stat-value">$312K</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-label">Liquidity</span>
+                                <span class="stat-value">$89K</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-label">24h</span>
+                                <span class="stat-value positive">+3%</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-label">Ends</span>
+                                <span class="stat-value">Dec 31</span>
+                            </div>
+                        </div>
+                        <div class="market-card-actions">
+                            <button class="btn btn-sm btn-yes">Buy YES</button>
+                            <button class="btn btn-sm btn-no">Buy NO</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Load More -->
+                <div class="load-more">
+                    <button class="btn btn-ghost">
+                        <span>📥</span> Load More Markets
+                    </button>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Market Detail Modal -->
+    <div class="modal-overlay" id="marketModal">
+        <div class="modal-container">
+            <div class="modal-header">
+                <h3 class="modal-title">Market Details</h3>
+                <button class="modal-close" onclick="closeModal()">✕</button>
+            </div>
+            <div class="modal-content">
+                <!-- Modal content would be dynamically populated -->
+            </div>
+        </div>
+    </div>
+
+    <script src="markets.js"></script>
+</body>
+</html>

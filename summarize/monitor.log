@@ -1,0 +1,6 @@
+[2026-03-06 13:31:03] Initializing monitor configuration...
+[2026-03-06 13:31:03] Config file: /data/.openclaw/workspace/summarize/monitor.json
+[2026-03-06 13:31:03] Sources configured:
+[2026-03-06 13:31:03]   - daily_tech: 2 sources
+[2026-03-06 13:31:03]   - weekly_podcast: 1 sources
+[2026-03-06 13:31:03] Edit monitor.json to add your sources.

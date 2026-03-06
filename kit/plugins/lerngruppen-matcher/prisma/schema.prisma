@@ -1,0 +1,117 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String    @id @default(uuid())
+  email        String    @unique
+  name         String
+  avatar       String?
+  modules      String[]
+  avgGrade     Float?
+  semester     Int
+  availability Json?
+  studyStyle   String    @default("mixed")
+  bio          String?
+  discordId    String?
+  createdAt    DateTime  @default(now())
+  
+  swipesFrom   Swipe[]   @relation("SwipesFrom")
+  swipesTo     Swipe[]   @relation("SwipesTo")
+  matches1     Match[]   @relation("MatchUser1")
+  matches2     Match[]   @relation("MatchUser2")
+  groupMembers GroupMember[]
+}
+
+model Swipe {
+  id         String   @id @default(uuid())
+  fromUserId String
+  toUserId   String
+  liked      Boolean
+  createdAt  DateTime @default(now())
+  
+  fromUser   User     @relation("SwipesFrom", fields: [fromUserId], references: [id], onDelete: Cascade)
+  toUser     User     @relation("SwipesTo", fields: [toUserId], references: [id], onDelete: Cascade)
+  
+  @@unique([fromUserId, toUserId])
+  @@index([fromUserId])
+}
+
+model Match {
+  id        String    @id @default(uuid())
+  user1Id   String
+  user2Id   String
+  matchedAt DateTime  @default(now())
+  
+  user1     User      @relation("MatchUser1", fields: [user1Id], references: [id], onDelete: Cascade)
+  user2     User      @relation("MatchUser2", fields: [user2Id], references: [id], onDelete: Cascade)
+  
+  messages  Message[]
+  
+  @@unique([user1Id, user2Id])
+}
+
+model Group {
+  id             String        @id @default(uuid())
+  name           String
+  description    String?
+  moduleId       String
+  moduleName     String?
+  isPrivate      Boolean       @default(false)
+  maxMembers     Int           @default(6)
+  discordChannelId String?
+  createdAt      DateTime      @default(now())
+  
+  members        GroupMember[]
+  messages       Message[]
+  events         Event[]
+  
+  @@index([moduleId])
+}
+
+model GroupMember {
+  id        String   @id @default(uuid())
+  groupId   String
+  userId    String
+  role      String   @default("member")
+  joinedAt  DateTime @default(now())
+  
+  group     Group    @relation(fields: [groupId], references: [id], onDelete: Cascade)
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  @@unique([groupId, userId])
+}
+
+model Message {
+  id        String   @id @default(uuid())
+  groupId   String?
+  matchId   String?
+  userId    String
+  content   String   @db.Text
+  createdAt DateTime @default(now())
+  
+  group     Group?   @relation(fields: [groupId], references: [id], onDelete: Cascade)
+  match     Match?   @relation(fields: [matchId], references: [id], onDelete: Cascade)
+  
+  @@index([groupId])
+  @@index([matchId])
+}
+
+model Event {
+  id        String   @id @default(uuid())
+  groupId   String
+  title     String
+  start     DateTime
+  end       DateTime
+  location  String?
+  createdAt DateTime @default(now())
+  
+  group     Group    @relation(fields: [groupId], references: [id], onDelete: Cascade)
+  
+  @@index([groupId])
+}

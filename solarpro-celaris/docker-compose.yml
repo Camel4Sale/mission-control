@@ -1,0 +1,127 @@
+version: '3.8'
+
+services:
+  # Main Bot API
+  api:
+    build: .
+    container_name: solarpro-api
+    ports:
+      - "8000:8000"
+    environment:
+      - DATABASE_URL=postgresql://solarpro:password@db:5432/solarpro
+      - REDIS_URL=redis://redis:6379/0
+    volumes:
+      - ./app:/app/app
+      - ./logs:/app/logs
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # PostgreSQL Database
+  db:
+    image: postgres:15-alpine
+    container_name: solarpro-db
+    environment:
+      POSTGRES_USER: solarpro
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: solarpro
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./scripts/init-db.sql:/docker-entrypoint-initdb.d/init.sql
+    ports:
+      - "5432:5432"
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U solarpro"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Redis Cache
+  redis:
+    image: redis:7-alpine
+    container_name: solarpro-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Celery Worker (Background Tasks)
+  worker:
+    build: .
+    container_name: solarpro-worker
+    command: celery -A app.worker.celery worker --loglevel=info
+    environment:
+      - DATABASE_URL=postgresql://solarpro:password@db:5432/solarpro
+      - REDIS_URL=redis://redis:6379/0
+    volumes:
+      - ./app:/app/app
+      - ./logs:/app/logs
+    depends_on:
+      - db
+      - redis
+    restart: unless-stopped
+
+  # Celery Beat (Scheduled Tasks)
+  beat:
+    build: .
+    container_name: solarpro-beat
+    command: celery -A app.worker.celery beat --loglevel=info
+    environment:
+      - DATABASE_URL=postgresql://solarpro:password@db:5432/solarpro
+      - REDIS_URL=redis://redis:6379/0
+    volumes:
+      - ./app:/app/app
+      - ./logs:/app/logs
+    depends_on:
+      - db
+      - redis
+    restart: unless-stopped
+
+  # Prometheus (Monitoring)
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: solarpro-prometheus
+    volumes:
+      - ./monitoring/prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus_data:/prometheus
+    ports:
+      - "9090:9090"
+    restart: unless-stopped
+
+  # Grafana (Dashboards)
+  grafana:
+    image: grafana/grafana:latest
+    container_name: solarpro-grafana
+    volumes:
+      - grafana_data:/var/lib/grafana
+      - ./monitoring/grafana/dashboards:/etc/grafana/provisioning/dashboards
+      - ./monitoring/grafana/datasources:/etc/grafana/provisioning/datasources
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+    depends_on:
+      - prometheus
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
+  redis_data:
+  prometheus_data:
+  grafana_data:

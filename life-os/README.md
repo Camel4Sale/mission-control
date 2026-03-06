@@ -1,36 +1,232 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🧬 Life OS - Dein Persönliches Betriebssystem
 
-## Getting Started
+**Ein alles-in-einem Dashboard für Leben, Studium, Unternehmen und Projekte**
 
-First, run the development server:
+Life OS ist dein zentrales Nervensystem - verbinde Studium, Arbeit, Projekte und persönliches Wachstum in einer eleganten, intuitiven Oberfläche.
+
+---
+
+## ✨ Features
+
+### 📚 Studium
+- **Modul-Planer** - Behalte deinen Studienplan im Blick
+- **Noten-Tracker** - Alle Noten an einem Ort
+- **Lern-Timer** - Pomodoro-Technik integriert
+- **Klausur-Kalender** - Nie wieder eine Prüfung vergessen
+- **Flashcards** - Aktives Recall für effizientes Lernen
+- **Study Hub** - Alle Lernressourcen gebündelt
+
+### 💼 Unternehmen
+- **Celaris Dashboard** - Solar Sales Tools
+- **Elysium Platform** - Immobilien-Management
+- **Pathium Analytics** - Datenvisualisierung
+- **CRM Integration** - Kundenbeziehungen pflegen
+- **Projekt-Tracker** - Alle Projekte im Überblick
+
+### 📊 Analytics
+- **Persönliche Stats** - Produktivität, Lernen, Fortschritt
+- **Dark/Light Mode** - Automatisch oder manuell
+- **Custom Widgets** - Deine wichtigsten Metrics
+
+---
+
+## 🎨 Design Philosophy
+
+**BOLD & ORGANIC** - Kein generisches AI-Slop!
+
+- **Typography:** Fraunces (Display) + Plus Jakarta Sans (Body)
+- **Farben:** Warme, atmosphärische Paletten
+- **Micro-Interactions:** Subtile Hover-Effekte, smooth transitions
+- **Mobile-First:** Perfekt auf allen Devices
+- **Accessibility:** ARIA-konform, kontrastreich
+
+---
+
+## 🚀 Quick Start
+
+### Voraussetzungen
+- Node.js 18+
+- npm oder bun
+
+### Installation
 
 ```bash
+# Clone & Install
+cd life-os
+npm install
+
+# Environment setzen
+cp .env.example .env
+
+# Development Server
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+👉 Öffne **http://localhost:3000**
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 📁 Projektstruktur
 
-## Learn More
+```
+life-os/
+├── src/
+│   ├── app/
+│   │   ├── (with-nav)/          # Hauptbereich mit Navigation
+│   │   │   ├── page.tsx         # Dashboard Home
+│   │   │   └── layout.tsx
+│   │   ├── studium/
+│   │   │   ├── module/          # Modul-Planer
+│   │   │   ├── noten/           # Noten-Tracker
+│   │   │   ├── lern-timer/      # Pomodoro
+│   │   │   ├── klausuren/       # Klausur-Kalender
+│   │   │   └── study/           # Study Hub
+│   │   ├── unternehmen/
+│   │   │   ├── celaris/         # Celaris Dashboard
+│   │   │   ├── elysium/         # Elysium Platform
+│   │   │   └── pathium/         # Pathium Analytics
+│   │   ├── docs/                # Dokumentation
+│   │   └── projekte/            # Projekt-Übersicht
+│   ├── components/
+│   │   ├── ui/                  # Design System
+│   │   │   ├── Button.tsx
+│   │   │   ├── Card.tsx
+│   │   │   ├── Input.tsx
+│   │   │   ├── Badge.tsx
+│   │   │   └── index.ts
+│   │   ├── Navigation.tsx       # Sidebar Nav
+│   │   ├── TopBar.tsx           # Header
+│   │   └── QuickAdd.tsx         # Quick Actions
+│   └── lib/
+│       └── api.ts               # API Utilities
+├── public/
+├── package.json
+├── tailwind.config.ts
+└── README.md
+```
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 🎯 Roadmap
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Q2 2026 - Foundation ✅
+- [x] Core Architecture
+- [x] Design System
+- [x] Navigation & Layout
+- [ ] Alle Studium-Features
+- [ ] Unternehmen-Dashboards
 
-## Deploy on Vercel
+### Q3 2026 - Integration
+- [ ] API-Integrationen (Google Calendar, Notion)
+- [ ] Mobile App (React Native)
+- [ ] Offline-Mode
+- [ ] Sync zwischen Devices
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Q4 2026 - AI Features
+- [ ] AI Study Assistant
+- [ ] Automatische Zeitplanung
+- [ ] Smart Notifications
+- [ ] Voice Commands
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+
+## 🛠 Tech Stack
+
+| Layer | Tech |
+|-------|------|
+| Framework | Next.js 14 App Router |
+| Language | TypeScript (strict) |
+| Styling | Tailwind CSS + CSS Variables |
+| Fonts | Fraunces + Plus Jakarta Sans |
+| Icons | Lucide React |
+| State | React Context + Hooks |
+| Deployment | Vercel |
+
+---
+
+## 🎨 Design Tokens
+
+```css
+:root {
+  /* Typography */
+  --font-display: 'Fraunces', serif;
+  --font-body: 'Plus Jakarta Sans', sans-serif;
+  
+  /* Colors - Dark Mode */
+  --bg-primary: #0a0a0a;
+  --bg-secondary: #141414;
+  --bg-surface: #1a1a1a;
+  --text-primary: #ffffff;
+  --text-secondary: #a0a0a0;
+  --accent: #f97316;  /* Warm Orange */
+  --accent-secondary: #fb923c;
+  
+  /* Spacing */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  
+  /* Radius */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  
+  /* Shadows */
+  --shadow-sm: 0 1px 2px rgba(0,0,0,0.3);
+  --shadow-md: 0 4px 12px rgba(0,0,0,0.4);
+  --shadow-lg: 0 8px 24px rgba(0,0,0,0.5);
+}
+```
+
+---
+
+## 📊 Performance Targets
+
+- ✅ Lighthouse Score: 95+
+- ✅ First Contentful Paint: < 1.5s
+- ✅ Time to Interactive: < 3.5s
+- ✅ Cumulative Layout Shift: < 0.1
+- ✅ Bundle Size: < 200KB (gzipped)
+
+---
+
+## 🔒 Security
+
+- Environment Variables für sensible Daten
+- No Third-Party Tracker
+- Local-First Architecture
+- Optional: End-to-End Encryption
+
+---
+
+## 🤝 Contributing
+
+1. Forken
+2. Feature Branch (`git checkout -b feature/add-xyz`)
+3. Commiten (`git commit -m 'Add XYZ feature'`)
+4. Pushen (`git push origin feature/add-xyz`)
+5. Pull Request öffnen
+
+---
+
+## 📞 Support
+
+- **Discord:** https://discord.gg/UGkgpRFj
+- **Issues:** GitHub Issues
+- **Docs:** `/docs` in der App
+
+---
+
+## 🙏 Credits
+
+**Built with ❤️** by KIT Students  
+**License:** MIT  
+**Not affiliated with KIT**
+
+---
+
+**🚀 Optimize your life, one module at a time.**
+
+*Made in Karlsruhe*

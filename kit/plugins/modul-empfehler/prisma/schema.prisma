@@ -1,0 +1,119 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Module {
+  id            String   @id @default(uuid())
+  code          String   @unique
+  name          String
+  description   String   @db.Text
+  ects          Int
+  semester      Int
+  area          String
+  workload      Int
+  difficulty    Int
+  language      String   @default("de")
+  professor     String?
+  prerequisites String[]
+  topics        String[]
+  createdAt     DateTime @default(now())
+  
+  reviews       Review[]
+  recommendations Recommendation[]
+  
+  @@index([area])
+  @@index([semester])
+}
+
+model Review {
+  id        String   @id @default(uuid())
+  moduleId  String
+  userId    String
+  rating    Int
+  workload  Int
+  difficulty Int
+  comment   String?
+  semester  String
+  createdAt DateTime @default(now())
+  
+  module    Module   @relation(fields: [moduleId], references: [id], onDelete: Cascade)
+  
+  @@index([moduleId])
+}
+
+model User {
+  id             String   @id @default(uuid())
+  email          String   @unique
+  name           String
+  program        String
+  semester       Int
+  interests      String[]
+  careerGoals    String[]
+  completedModules String[]
+  createdAt      DateTime @default(now())
+  
+  studyPlan      StudyPlan?
+  recommendations Recommendation[]
+}
+
+model StudyPlan {
+  id        String   @id @default(uuid())
+  userId    String   @unique
+  semesters Json
+  totalEcts Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model CareerPath {
+  id          String   @id @default(uuid())
+  name        String
+  description String
+  modules     String[]
+  skills      String[]
+  companies   String[]
+  avgSalary   Int?
+  createdAt   DateTime @default(now())
+  
+  recommendations Recommendation[]
+}
+
+model Recommendation {
+  id           String   @id @default(uuid())
+  userId       String?
+  moduleId     String
+  careerPathId String?
+  score        Float
+  reason       String
+  source       String
+  createdAt    DateTime @default(now())
+  
+  user         User?      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  module       Module     @relation(fields: [moduleId], references: [id], onDelete: Cascade)
+  careerPath   CareerPath? @relation(fields: [careerPathId], references: [id])
+  
+  @@index([userId])
+  @@index([moduleId])
+}
+
+model AlumniData {
+  id             String   @id @default(uuid())
+  program        String
+  graduationYear Int
+  modules        String[]
+  thesis         String?
+  currentJob     String?
+  company        String?
+  salary         Int?
+  createdAt      DateTime @default(now())
+  
+  @@index([program])
+  @@index([graduationYear])
+}

@@ -1,0 +1,439 @@
+// Elysium Property Dashboard - Database Schema
+// PostgreSQL + Prisma ORM
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ============================================
+// PROPERTY MANAGEMENT
+// ============================================
+
+enum PropertyStatus {
+  RENTED
+  VACANT
+  RENOVATION
+  FOR_SALE
+}
+
+enum PropertyType {
+  RESIDENTIAL
+  COMMERCIAL
+  MIXED_USE
+  LAND
+}
+
+model Property {
+  id              String          @id @default(cuid())
+  name            String
+  address         String
+  city            String
+  zipCode         String
+  country         String          @default("Germany")
+  propertyType    PropertyType
+  status          PropertyStatus  @default(VACANT)
+  size            Float           // in m²
+  rooms           Int?
+  yearBuilt       Int?
+  purchasePrice   Float
+  currentValue    Float
+  monthlyRent     Float?
+  description     String?
+  images          String[]        // Array of image URLs
+  documents       Document[]
+  units           Int             @default(1) // Number of units
+  createdAt       DateTime        @default(now())
+  updatedAt       DateTime        @updatedAt
+  
+  // Financials
+  transactions    Transaction[]
+  maintenance     Maintenance[]
+  
+  // Tenants
+  leases          Lease[]
+  
+  // Acquisition
+  acquisition     Acquisition?
+  
+  // Analytics
+  valueHistory    ValueHistory[]
+  
+  @@index([city, status])
+  @@index([propertyType])
+}
+
+// ============================================
+// DOCUMENT STORAGE
+// ============================================
+
+enum DocumentType {
+  CONTRACT
+  DEED
+  INVOICE
+  INSURANCE
+  PERMIT
+  PHOTO
+  OTHER
+}
+
+model Document {
+  id          String       @id @default(cuid())
+  propertyId  String
+  property    Property     @relation(fields: [propertyId], references: [id], onDelete: Cascade)
+  type        DocumentType
+  name        String
+  url         String
+  fileSize    Int          // in bytes
+  uploadedAt  DateTime     @default(now())
+  expiryDate  DateTime?
+  
+  @@index([propertyId])
+  @@index([type])
+}
+
+// ============================================
+// TENANT MANAGEMENT
+// ============================================
+
+enum LeaseStatus {
+  ACTIVE
+  EXPIRED
+  TERMINATED
+  PENDING
+}
+
+model Tenant {
+  id            String    @id @default(cuid())
+  firstName     String
+  lastName      String
+  email         String
+  phone         String?
+  dateOfBirth   DateTime?
+  address       String?
+  city          String?
+  zipCode       String?
+  country       String    @default("Germany")
+  emergencyContact String?
+  emergencyPhone   String?
+  
+  leases        Lease[]
+  communications Communication[]
+  
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  
+  @@unique([email])
+  @@index([lastName])
+}
+
+model Lease {
+  id              String      @id @default(cuid())
+  propertyId      String
+  property        Property    @relation(fields: [propertyId], references: [id], onDelete: Cascade)
+  tenantId        String
+  tenant          Tenant      @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  
+  startDate       DateTime
+  endDate         DateTime
+  monthlyRent     Float
+  deposit         Float
+  status          LeaseStatus @default(PENDING)
+  contractUrl     String?
+  renewalDate     DateTime?
+  noticePeriod    Int         // in months, default 3
+  specialTerms    String?     // Special conditions
+  
+  payments        Payment[]
+  
+  createdAt       DateTime    @default(now())
+  updatedAt       DateTime    @updatedAt
+  
+  @@index([propertyId])
+  @@index([tenantId])
+  @@index([status])
+}
+
+enum PaymentStatus {
+  PENDING
+  PAID
+  OVERDUE
+  PARTIAL
+  FAILED
+}
+
+model Payment {
+  id            String        @id @default(cuid())
+  leaseId       String
+  lease         Lease         @relation(fields: [leaseId], references: [id], onDelete: Cascade)
+  
+  amount        Float
+  dueDate       DateTime
+  paidDate      DateTime?
+  status        PaymentStatus @default(PENDING)
+  paymentMethod String?       // Bank Transfer, Credit Card, etc.
+  reference     String?       // Payment reference number
+  notes         String?
+  
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+  
+  @@index([leaseId])
+  @@index([status])
+  @@index([dueDate])
+}
+
+// ============================================
+// COMMUNICATION LOG
+// ============================================
+
+enum CommunicationType {
+  EMAIL
+  PHONE
+  SMS
+  VISIT
+  OTHER
+}
+
+enum CommunicationPriority {
+  LOW
+  MEDIUM
+  HIGH
+  URGENT
+}
+
+model Communication {
+  id            String                @id @default(cuid())
+  tenantId      String?
+  tenant        Tenant?               @relation(fields: [tenantId], references: [id], onDelete: SetNull)
+  propertyId    String?
+  type          CommunicationType
+  subject       String
+  content       String
+  direction     String                // INBOUND or OUTBOUND
+  priority      CommunicationPriority @default(MEDIUM)
+  resolved      Boolean               @default(false)
+  resolvedAt    DateTime?
+  followUpDate  DateTime?
+  
+  createdAt     DateTime              @default(now())
+  updatedAt     DateTime              @updatedAt
+  
+  @@index([tenantId])
+  @@index([propertyId])
+  @@index([priority, resolved])
+}
+
+// ============================================
+// MAINTENANCE TRACKER
+// ============================================
+
+enum MaintenanceStatus {
+  PENDING
+  IN_PROGRESS
+  COMPLETED
+  CANCELLED
+}
+
+enum MaintenancePriority {
+  LOW
+  MEDIUM
+  HIGH
+  EMERGENCY
+}
+
+enum MaintenanceType {
+  REPAIR
+  MAINTENANCE
+  INSPECTION
+  RENOVATION
+  OTHER
+}
+
+model Maintenance {
+  id            String              @id @default(cuid())
+  propertyId    String
+  property      Property            @relation(fields: [propertyId], references: [id], onDelete: Cascade)
+  
+  type          MaintenanceType
+  priority      MaintenancePriority @default(MEDIUM)
+  status        MaintenanceStatus   @default(PENDING)
+  
+  title         String
+  description   String
+  reportedBy    String?             // Tenant name or "Owner"
+  assignedTo    String?             // Contractor name
+  contractorEmail String?
+  contractorPhone String?
+  
+  estimatedCost Float?
+  actualCost    Float?
+  
+  scheduledDate DateTime?
+  completedDate DateTime?
+  dueDate       DateTime?
+  
+  images        String[]
+  invoices      String[]            // Invoice URLs
+  
+  notes         String?
+  
+  createdAt     DateTime            @default(now())
+  updatedAt     DateTime            @updatedAt
+  
+  @@index([propertyId])
+  @@index([status, priority])
+  @@index([dueDate])
+}
+
+// ============================================
+// FINANCIAL TRANSACTIONS
+// ============================================
+
+enum TransactionType {
+  INCOME
+  EXPENSE
+  TRANSFER
+}
+
+enum TransactionCategory {
+  RENT
+  UTILITIES
+  MAINTENANCE
+  INSURANCE
+  TAXES
+  MANAGEMENT
+  IMPROVEMENT
+  OTHER
+}
+
+model Transaction {
+  id            String             @id @default(cuid())
+  propertyId    String
+  property      Property           @relation(fields: [propertyId], references: [id], onDelete: Cascade)
+  
+  type          TransactionType
+  category      TransactionCategory
+  amount        Float
+  date          DateTime
+  description   String
+  reference     String?
+  receiptUrl    String?
+  
+  createdAt     DateTime           @default(now())
+  updatedAt     DateTime           @updatedAt
+  
+  @@index([propertyId])
+  @@index([type, date])
+  @@index([category])
+}
+
+// ============================================
+// VALUE HISTORY (for analytics)
+// ============================================
+
+model ValueHistory {
+  id          String   @id @default(cuid())
+  propertyId  String
+  property    Property @relation(fields: [propertyId], references: [id], onDelete: Cascade)
+  
+  value       Float
+  date        DateTime @default(now())
+  source      String?  // Appraisal, Market Estimate, etc.
+  notes       String?
+  
+  @@index([propertyId, date])
+}
+
+// ============================================
+// ACQUISITION PIPELINE
+// ============================================
+
+enum AcquisitionStatus {
+  RESEARCH
+  VIEWING
+  OFFER
+  NEGOTIATION
+  DUE_DILIGENCE
+  CLOSED
+  REJECTED
+}
+
+model Acquisition {
+  id              String            @id @default(cuid())
+  propertyId      String            @unique
+  property        Property          @relation(fields: [propertyId], references: [id], onDelete: Cascade)
+  
+  status          AcquisitionStatus @default(RESEARCH)
+  
+  listingPrice    Float
+  offerPrice      Float?
+  finalPrice      Float?
+  
+  financing       Financing?
+  dueDiligence    DueDiligence?
+  
+  comparables     String[]          // URLs or notes about comparable properties
+  
+  agentName       String?
+  agentContact    String?
+  
+  notes           String?
+  
+  createdAt       DateTime          @default(now())
+  updatedAt       DateTime          @updatedAt
+  
+  @@index([status])
+}
+
+model Financing {
+  id              String   @id @default(cuid())
+  acquisitionId   String   @unique
+  acquisition     Acquisition @relation(fields: [acquisitionId], references: [id], onDelete: Cascade)
+  
+  bank            String
+  loanAmount      Float
+  interestRate    Float
+  term            Int      // in years
+  monthlyPayment  Float?
+  
+  downPayment     Float
+  closingCosts    Float?
+  
+  approvalStatus  String?  // Pre-approved, Approved, Denied
+  approvalDate    DateTime?
+  
+  notes           String?
+  
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
+
+model DueDiligence {
+  id              String   @id @default(cuid())
+  acquisitionId   String   @unique
+  acquisition     Acquisition @relation(fields: [acquisitionId], references: [id], onDelete: Cascade)
+  
+  // Checklist items
+  titleSearch     Boolean  @default(false)
+  inspection      Boolean  @default(false)
+  appraisal       Boolean  @default(false)
+  environmental   Boolean  @default(false)
+  zoning          Boolean  @default(false)
+  financials      Boolean  @default(false)
+  legalReview     Boolean  @default(false)
+  insurance       Boolean  @default(false)
+  
+  // Additional checks
+  customChecks    Json?    // Additional custom checklist items
+  
+  completedAt     DateTime?
+  notes           String?
+  
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}

@@ -1,0 +1,16 @@
+{
+  "sources": {
+    "daily_tech": [
+      "https://www.theverge.com/tech",
+      "https://arstechnica.com/"
+    ],
+    "weekly_podcast": [
+      "https://www.youtube.com/@LexFridman"
+    ]
+  },
+  "schedule": {
+    "daily": "30 8 * * *",
+    "weekly": "0 16 * * 5"
+  },
+  "last_run": null
+}

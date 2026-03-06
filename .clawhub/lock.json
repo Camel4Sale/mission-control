@@ -56,6 +56,22 @@
     "clawdhub": {
       "version": "1.0.0",
       "installedAt": 1772627956356
+    },
+    "youtube-watcher": {
+      "version": "1.0.0",
+      "installedAt": 1772803342567
+    },
+    "api-gateway": {
+      "version": "1.0.60",
+      "installedAt": 1772803750021
+    },
+    "agent-daily-planner": {
+      "version": "1.0.0",
+      "installedAt": 1772807505928
+    },
+    "agent-task-tracker": {
+      "version": "1.1.0",
+      "installedAt": 1772807511277
     }
   }
 }

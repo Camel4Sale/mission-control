@@ -129,6 +129,28 @@
 
 ---
 
+## 🔍 SERVICE-MONITORING (Alle Projekte)
+
+**Critical Services (alle 15 Min):**
+- Mission Control (3001)
+- Life OS (3002)
+- Polymarket Dashboard (3010)
+- OpenClaw Gateway
+
+**Business Services (täglich):**
+- Celaris Landing-Page
+- Elysium Property-Dashboard
+- Pathium Agency-Website
+
+**Infrastructure (wöchentlich):**
+- Database (PostgreSQL, Redis)
+- Skills (ClawHub)
+- Cron-Jobs (72 Total)
+
+**Siehe:** `SERVICE-STATUS-ALL.md` für vollständige Übersicht
+
+---
+
 ### 🧠 Meta-Learnings (Permanent implementiert)
 
 **Was extrem gut funktioniert:**

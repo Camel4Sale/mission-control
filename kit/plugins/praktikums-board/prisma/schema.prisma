@@ -1,0 +1,105 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Company {
+  id            String   @id @default(uuid())
+  name          String
+  description   String?
+  website       String
+  logoUrl       String?
+  industry      String
+  size          String
+  verified      Boolean  @default(false)
+  stripeAccountId String?
+  createdAt     DateTime @default(now())
+  
+  jobs          Job[]
+}
+
+model Job {
+  id                String     @id @default(uuid())
+  companyId         String
+  title             String
+  description       String     @db.Text
+  location          String
+  remote            Boolean    @default(false)
+  salaryMin         Int?
+  salaryMax         Int?
+  type              String
+  duration          Int?
+  start             DateTime?
+  requirements      String[]
+  benefits          String[]
+  applicationDeadline DateTime?
+  isActive          Boolean    @default(true)
+  views             Int        @default(0)
+  applicationsCount Int        @default(0)
+  createdAt         DateTime   @default(now())
+  
+  company           Company    @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  applications      Application[]
+  
+  @@index([companyId])
+  @@index([type])
+  @@index([isActive])
+}
+
+model Student {
+  id              String   @id @default(uuid())
+  email           String   @unique
+  name            String
+  avatar          String?
+  cvUrl           String?
+  modules         String[]
+  avgGrade        Float?
+  semester        Int
+  skills          String[]
+  interests       String[]
+  preferredLocation String?
+  preferredType   String?
+  availability    DateTime?
+  createdAt       DateTime @default(now())
+  
+  applications    Application[]
+  interviewPreps  InterviewPrep[]
+}
+
+model Application {
+  id          String   @id @default(uuid())
+  jobId       String
+  studentId   String
+  coverLetter String?
+  cvUrl       String?
+  status      String   @default("pending")
+  matchScore  Float?
+  aiGenerated Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  
+  job         Job      @relation(fields: [jobId], references: [id], onDelete: Cascade)
+  student     Student  @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  
+  @@unique([jobId, studentId])
+  @@index([studentId])
+  @@index([status])
+}
+
+model InterviewPrep {
+  id        String   @id @default(uuid())
+  studentId String
+  jobId     String?
+  questions Json?
+  answers   Json?
+  feedback  String?
+  completed Boolean  @default(false)
+  createdAt DateTime @default(now())
+  
+  student   Student  @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  
+  @@index([studentId])
+}

@@ -1,0 +1,1 @@
+export { LocationAnalyzer } from './LocationAnalyzer';

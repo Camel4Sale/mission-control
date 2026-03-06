@@ -1,0 +1,36 @@
+{
+  "name": "@elysium/location-analyzer",
+  "version": "1.0.0",
+  "description": "Deep neighborhood analysis for real estate with crime, education, infrastructure, environment, and demographic data",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./components": "./src/components/index.ts",
+    "./services": "./src/services/index.ts",
+    "./types": "./src/types/index.ts"
+  },
+  "scripts": {
+    "dev": "tsc --watch",
+    "build": "tsc",
+    "lint": "eslint src/",
+    "test": "vitest"
+  },
+  "dependencies": {
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "next": "^16.0.0",
+    "lucide-react": "^0.576.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.0.0",
+    "@types/react": "^19.0.0",
+    "@types/node": "^20.0.0",
+    "eslint": "^9.0.0",
+    "vitest": "^2.0.0"
+  },
+  "peerDependencies": {
+    "react": ">=18.0.0",
+    "next": ">=14.0.0"
+  }
+}

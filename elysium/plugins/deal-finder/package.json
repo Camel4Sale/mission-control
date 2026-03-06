@@ -1,0 +1,51 @@
+{
+  "name": "@elysium/deal-finder",
+  "version": "1.0.0",
+  "description": "Deal-Finder Pro Plugin for Elysium Platform - Real Estate Deal Discovery & Analysis",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "dev": "next dev",
+    "build": "tsc && next build",
+    "start": "next start",
+    "lint": "eslint . --ext .ts,.tsx",
+    "scrape": "ts-node src/services/scraper.ts",
+    "analyze": "ts-node src/services/analyzer.ts",
+    "alert": "ts-node src/services/alert-service.ts"
+  },
+  "dependencies": {
+    "next": "^14.1.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "typescript": "^5.3.3",
+    "puppeteer": "^21.7.0",
+    "axios": "^1.6.5",
+    "cheerio": "^1.0.0-rc.12",
+    "node-cron": "^3.0.3",
+    "openai": "^4.28.0",
+    "recharts": "^2.10.4",
+    "tailwindcss": "^3.4.1",
+    "prisma": "^5.8.0",
+    "@prisma/client": "^5.8.0",
+    "nodemailer": "^6.9.8",
+    "twilio": "^4.20.0",
+    "papaparse": "^5.4.1",
+    "pdfkit": "^0.14.0",
+    "date-fns": "^3.3.1",
+    "zod": "^3.22.4",
+    "uuid": "^9.0.1"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.5",
+    "@types/react": "^18.2.48",
+    "@types/puppeteer": "^7.0.4",
+    "@types/node-cron": "^3.0.11",
+    "@types/nodemailer": "^6.4.14",
+    "@types/papaparse": "^5.3.14",
+    "@types/pdfkit": "^0.13.4",
+    "@types/uuid": "^9.0.7",
+    "eslint": "^8.56.0",
+    "@typescript-eslint/parser": "^6.19.0",
+    "@typescript-eslint/eslint-plugin": "^6.19.0"
+  }
+}

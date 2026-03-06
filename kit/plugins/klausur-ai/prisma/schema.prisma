@@ -1,0 +1,79 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Exam {
+  id           String     @id @default(uuid())
+  moduleId     String
+  moduleName   String
+  professor    String?
+  semester     String
+  examDate     DateTime
+  duration     Int
+  ects         Int
+  difficulty   Int
+  fileUrl      String
+  thumbnailUrl String?
+  uploads      Int        @default(0)
+  views        Int        @default(0)
+  isPremium    Boolean    @default(false)
+  createdAt    DateTime   @default(now())
+  tags         String[]
+  
+  solutions    Solution[]
+  uploads_list Upload[]
+  
+  @@index([moduleId])
+  @@index([semester])
+  @@index([tags])
+}
+
+model Solution {
+  id          String   @id @default(uuid())
+  examId      String
+  content     String   @db.Text
+  aiGenerated Boolean  @default(false)
+  steps       Json?
+  rating      Float    @default(0)
+  votes       Int      @default(0)
+  createdAt   DateTime @default(now())
+  
+  exam        Exam     @relation(fields: [examId], references: [id], onDelete: Cascade)
+  
+  @@index([examId])
+}
+
+model PremiumUser {
+  id        String   @id @default(uuid())
+  email     String   @unique
+  stripeId  String   @unique
+  plan      String   @default("premium")
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+}
+
+model Upload {
+  id        String   @id @default(uuid())
+  examId    String
+  userId    String
+  createdAt DateTime @default(now())
+  
+  exam      Exam     @relation(fields: [examId], references: [id], onDelete: Cascade)
+  
+  @@unique([examId, userId])
+}
+
+model SearchIndex {
+  id        String   @id @default(uuid())
+  examId    String
+  content   String   @db.Text
+  embedding Json?
+  createdAt DateTime @default(now())
+  
+  @@index([examId])
+}
