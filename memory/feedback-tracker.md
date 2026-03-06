@@ -16,7 +16,7 @@ Erstellt: 2026-03-06
 
 | Datum | Error | Context | Gelöst |
 |-------|-------|---------|--------|
-| 2026-03-06 15:07 | RSS-Monitor: 'list' object has no attribute 'add' | Product Hunt, HackerNews, CoinDesk, Dev.to | ⚠️ In Arbeit |
+| 2026-03-06 15:07 | RSS-Monitor: 'list' object has no attribute 'add' | Product Hunt, HackerNews, CoinDesk, Dev.to | ✅ Gelöst |
 | 2026-03-06 15:07 | Summarize-Service: source argument required | CLI-Usage | ℹ️ Info |
 | 2026-03-06 14:45 | Life-OS Routes 404 | `/studium`, `/unternehmen`, `/docs` | ⚠️ Build benötigt |
 
@@ -65,22 +65,21 @@ Erstellt: 2026-03-06
 ## Aktualisierte Priorisierung
 
 ### 🔴 High Priority
-1. **RSS-Monitor Bugs** — `.add()` Error in 4 Feeds (Product Hunt, HackerNews, CoinDesk, Dev.to)
-2. **Discord guildId konfigurieren** — openclaw.json
+1. **Discord guildId konfigurieren** — openclaw.json fehlt guildId
+2. ~~**RSS-Monitor Bugs** — .add() Error~~ ✅ GELÖST
 
 ### 🟡 Medium Priority
 1. **Life-OS Routes** — `/studium`, `/unternehmen`, `/docs` = 404
 2. **Discord-Feedback** — Nachholen sobald guildId konfiguriert
 
 ### 🟢 Low Priority
-- RSS-Monitor läuft (8/12 Feeds OK)
+- RSS-Monitor läuft (12/12 Feeds OK)
 
 ---
 
 ## Nächste Schritte
-1. RSS-Monitor monitor.py fixen (list vs. dict)
-2. Discord: guildId in openclaw.json eintragen
-3. Life-OS: Build neu erstellen
+1. Discord: guildId in openclaw.json eintragen
+2. Life-OS: Build neu erstellen (`npm run build && pm2 restart`)
 
 ---
 
@@ -167,10 +166,10 @@ Erstellt: 2026-03-06
 
 ---
 
-## User Feedback Collector (19:35)
+## User Feedback Collector (20:05)
 
 ### Error-Logs Analyse
-- **Keine neuen Error-Logs** im System gefunden (letzte Prüfung 19:05)
+- **Keine neuen Error-Logs** im System gefunden (letzte Prüfung 19:35)
 - RSS-Monitor: ✅ **GELÖST** (12/12 Feeds OK)
 - Life-OS: Routes weiterhin 404 → **Build steht aus**
 
@@ -183,8 +182,8 @@ Erstellt: 2026-03-06
 - Keine neuen Feature-Requests
 
 ### Fazit
-**Status unverändert** seit letzter Aktualisierung (19:05). RSS-Monitor läuft einwandfrei. Life-OS Rebuild und Discord guildId-Konfiguration stehen weiterhin aus.
+**Status unverändert** seit letzter Aktualisierung (19:35). RSS-Monitor läuft einwandfrei. Life-OS Rebuild und Discord guildId-Konfiguration stehen weiterhin aus.
 
 ---
 
-*Last Updated: 2026-03-06 19:35*
+*Last Updated: 2026-03-06 20:05*
