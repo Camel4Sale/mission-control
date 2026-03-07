@@ -129,19 +129,19 @@ async def list_strategies():
 
 
 @app.get("/api/markets")
-async def get_markets(category: Optional[str] = None, limit: int = 50):
+async def get_markets(category: Optional[str] = None, limit: int = 50, paper_trading: bool = True):
     """Get active Polymarket markets."""
-    async with PolymarketAPI() as api:
+    async with PolymarketAPI(paper_trading=paper_trading) as api:
         markets = await api.get_markets(category, limit)
-        return {"markets": markets, "count": len(markets)}
+        return {"markets": markets, "count": len(markets), "paper_trading": paper_trading}
 
 
 @app.get("/api/markets/top")
-async def get_top_markets(limit: int = 20):
+async def get_top_markets(limit: int = 20, paper_trading: bool = True):
     """Get top markets by volume."""
-    async with PolymarketAPI() as api:
+    async with PolymarketAPI(paper_trading=paper_trading) as api:
         markets = await api.get_top_markets(limit)
-        return {"markets": markets, "count": len(markets)}
+        return {"markets": markets, "count": len(markets), "paper_trading": paper_trading}
 
 
 @app.get("/api/markets/search")
@@ -153,11 +153,11 @@ async def search_markets(query: str, limit: int = 20):
 
 
 @app.get("/api/history/{market_id}")
-async def get_market_history(market_id: str, days: int = 30):
+async def get_market_history(market_id: str, days: int = 30, paper_trading: bool = True):
     """Get historical price data for a market."""
-    async with PolymarketAPI() as api:
+    async with PolymarketAPI(paper_trading=paper_trading) as api:
         history = await api.get_price_history(market_id, days)
-        return {"history": history, "count": len(history)}
+        return {"history": history, "count": len(history), "paper_trading": paper_trading}
 
 
 @app.post("/api/backtest")

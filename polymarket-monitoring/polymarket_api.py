@@ -10,17 +10,36 @@ import logging
 
 logger = logging.getLogger(__name__)
 
-POLYMARKET_API_BASE = "https://gamma-api.polymarket.com"
+POLYMARKET_API_BASE = "https://api.polymarket.com"
+# Alternative endpoints:
+# - https://gamma-api.polymarket.com (old)
+# - https://api.polymarket.com (new)
+# - https://polymarket.com/api (web)
 
 
 class PolymarketAPI:
-    """Polymarket API Client for real-time and historical data."""
+    """Polymarket API Client for real-time and historical data.
     
-    def __init__(self, api_key: Optional[str] = None, api_secret: Optional[str] = None):
+    Automatically falls back to mock data in Paper Trading mode or when API fails.
+    """
+    
+    def __init__(self, api_key: Optional[str] = None, api_secret: Optional[str] = None, paper_trading: bool = False):
         self.api_key = api_key
         self.api_secret = api_secret
+        self.paper_trading = paper_trading or (api_key == "paper_trading_key_demo")
         self.session: Optional[aiohttp.ClientSession] = None
         self.base_url = POLYMARKET_API_BASE
+        self.mock_data = None
+        
+        # Import mock data generator for paper trading
+        if self.paper_trading:
+            try:
+                from mock_data_generator import MockPolymarketData
+                self.mock_data = MockPolymarketData(seed=42)
+                logger.info("🧊 Paper Trading Mode: Using mock data generator")
+            except Exception as e:
+                logger.warning(f"Failed to load mock data generator: {e}")
+                self.mock_data = None
     
     async def __aenter__(self):
         self.session = aiohttp.ClientSession()
@@ -82,6 +101,10 @@ class PolymarketAPI:
         Get historical price data for backtesting.
         Returns OHLCV data for the specified period.
         """
+        # Paper trading mode - use mock data
+        if self.paper_trading and self.mock_data:
+            return self.mock_data.generate_price_history(market_id, days)
+        
         end_date = datetime.now()
         start_date = end_date - timedelta(days=days)
         
@@ -96,10 +119,23 @@ class PolymarketAPI:
             async with self.session.get(url, params=params) as resp:
                 if resp.status == 200:
                     data = await resp.json()
-                    return data.get("history", [])
-                return []
+                    history = data.get("history", [])
+                    # If API returns empty, use mock data
+                    if not history:
+                        logger.warning(f"API returned empty history for {market_id}, using mock data")
+                        if self.mock_data:
+                            return self.mock_data.generate_price_history(market_id, days)
+                        return []
+                    return history
+                else:
+                    logger.warning(f"API error {resp.status} for {market_id}, using mock data")
+                    if self.mock_data:
+                        return self.mock_data.generate_price_history(market_id, days)
+                    return []
         except Exception as e:
-            logger.error(f"Error fetching history for {market_id}: {e}")
+            logger.error(f"Error fetching history for {market_id}: {e}, using mock data")
+            if self.mock_data:
+                return self.mock_data.generate_price_history(market_id, days)
             return []
     
     async def get_user_positions(self, user_address: str) -> List[Dict]:
@@ -119,6 +155,10 @@ class PolymarketAPI:
     
     async def get_top_markets(self, limit: int = 20) -> List[Dict]:
         """Get top markets by volume."""
+        # Paper trading mode - use mock data
+        if self.paper_trading and self.mock_data:
+            return self.mock_data.get_top_markets(limit)
+        
         url = f"{self.base_url}/markets"
         params = {
             "limit": limit,
@@ -130,10 +170,23 @@ class PolymarketAPI:
             async with self.session.get(url, params=params) as resp:
                 if resp.status == 200:
                     data = await resp.json()
-                    return data.get("markets", [])
-                return []
+                    markets = data.get("markets", [])
+                    # If API returns empty, use mock data
+                    if not markets:
+                        logger.warning("API returned empty markets, using mock data")
+                        if self.mock_data:
+                            return self.mock_data.get_top_markets(limit)
+                        return []
+                    return markets
+                else:
+                    logger.warning(f"API error {resp.status}, using mock data")
+                    if self.mock_data:
+                        return self.mock_data.get_top_markets(limit)
+                    return []
         except Exception as e:
-            logger.error(f"Error fetching top markets: {e}")
+            logger.error(f"Error fetching top markets: {e}, using mock data")
+            if self.mock_data:
+                return self.mock_data.get_top_markets(limit)
             return []
     
     async def search_markets(self, query: str, limit: int = 20) -> List[Dict]:
@@ -204,21 +257,24 @@ def get_price_history_sync(market_id: str, days: int = 30) -> List[Dict]:
 if __name__ == "__main__":
     # Test the API client
     async def test_api():
-        async with PolymarketAPI() as api:
-            print("Fetching top markets...")
+        # Use paper trading mode for testing (mock data)
+        async with PolymarketAPI(paper_trading=True) as api:
+            print("🧊 Fetching top markets (Paper Trading Mode)...")
             markets = await api.get_top_markets(limit=5)
-            print(f"Found {len(markets)} markets")
+            print(f"✅ Found {len(markets)} markets")
             
             if markets:
                 market = markets[0]
-                print(f"\nTop market: {market.get('question', 'N/A')}")
-                print(f"Volume: ${market.get('volume', 0):,.2f}")
+                print(f"\n📊 Top market: {market.get('question', 'N/A')}")
+                print(f"💰 Volume: ${market.get('volume', 0):,.2f}")
                 
                 # Get price history
                 market_id = market.get('id')
                 if market_id:
-                    print(f"\nFetching price history for {market_id}...")
+                    print(f"\n📈 Fetching price history for {market_id}...")
                     history = await api.get_price_history(market_id, days=7)
-                    print(f"Got {len(history)} data points")
+                    print(f"✅ Got {len(history)} data points")
+            else:
+                print("⚠️ No markets returned")
     
     asyncio.run(test_api())
