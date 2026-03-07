@@ -8,7 +8,7 @@ Fehler und Probleme für kontinuierliche Verbesserung.
 
 **Logged**: 2026-03-07T07:49:00+01:00
 **Priority**: high
-**Status**: pending
+**Status**: resolved
 **Area**: infra
 
 ### Summary
@@ -37,13 +37,17 @@ consecutiveErrors: 6
 - Related Files: Cron-Job Config im Gateway
 - See Also: ERR-20260307-002 (uptime-check channel Fehler)
 
+### Resolution
+- **Resolved**: 2026-03-07T07:53:00+01:00
+- **Fix**: Timeout auf 180s erhöht + delivery.channel gesetzt
+
 ---
 
 ## [ERR-20260307-002] uptime-check - Channel Required Error
 
 **Logged**: 2026-03-07T07:49:00+01:00
 **Priority**: medium
-**Status**: pending
+**Status**: resolved
 **Area**: config
 
 ### Summary
@@ -76,13 +80,17 @@ Delivery explizit setzen:
 - Related Files: Gateway Cron Config
 - See Also: ERR-20260307-003 (disk-usage-alert gleicher Fehler)
 
+### Resolution
+- **Resolved**: 2026-03-07T07:53:00+01:00
+- **Fix**: delivery.channel + to explizit gesetzt
+
 ---
 
 ## [ERR-20260307-003] disk-usage-alert - Channel Required Error
 
 **Logged**: 2026-03-07T07:49:00+01:00
 **Priority**: medium
-**Status**: pending
+**Status**: resolved
 **Area**: config
 
 ### Summary
@@ -114,13 +122,17 @@ Delivery explizit setzen:
 - Related Files: Gateway Cron Config
 - See Also: ERR-20260307-002
 
+### Resolution
+- **Resolved**: 2026-03-07T07:53:00+01:00
+- **Fix**: delivery.channel + to explizit gesetzt
+
 ---
 
 ## [ERR-20260307-004] user-feedback-collector - Telegram Delivery Error
 
 **Logged**: 2026-03-07T07:49:00+01:00
 **Priority**: medium
-**Status**: pending
+**Status**: resolved
 **Area**: config
 
 ### Summary
@@ -150,6 +162,10 @@ Target (chatId) explizit setzen:
 ### Metadata
 - Reproducible: yes
 - Related Files: Gateway Cron Config
+
+### Resolution
+- **Resolved**: 2026-03-07T07:53:00+01:00
+- **Fix**: delivery.to explizit gesetzt
 
 ---
 

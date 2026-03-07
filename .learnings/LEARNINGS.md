@@ -8,7 +8,7 @@ Korrekturen, Wissenslücken und Best Practices für kontinuierliche Verbesserung
 
 **Logged**: 2026-03-07T07:49:00+01:00
 **Priority**: high
-**Status**: pending
+**Status**: resolved
 **Area**: config
 
 ### Summary
@@ -39,13 +39,17 @@ IMMER explizit setzen wenn Channels > 1:
 - First-Seen: 2026-03-07
 - Last-Seen: 2026-03-07
 
+### Resolution
+- **Resolved**: 2026-03-07T07:53:00+01:00
+- **Fix**: Alle Cron-Jobs mit delivery.channel + to aktualisiert
+
 ---
 
 ## [LRN-20260307-002] best_practice - Telegram Target Required
 
 **Logged**: 2026-03-07T07:49:00+01:00
 **Priority**: high
-**Status**: pending
+**Status**: resolved
 **Area**: config
 
 ### Summary
@@ -73,13 +77,17 @@ Für Telegram immer `to` setzen:
 - Tags: telegram, delivery, target
 - Pattern-Key: telegram.target.required
 
+### Resolution
+- **Resolved**: 2026-03-07T07:53:00+01:00
+- **Fix**: delivery.to bei allen Telegram-Jobs gesetzt
+
 ---
 
 ## [LRN-20260307-003] knowledge_gap - Uptime-Check Timeout bei vielen Projekten
 
 **Logged**: 2026-03-07T07:49:00+01:00
 **Priority**: medium
-**Status**: pending
+**Status**: resolved
 **Area**: infra
 
 ### Summary
@@ -102,6 +110,10 @@ Optionen:
 - Related Files: Cron-Job Config
 - Tags: uptime, timeout, performance
 - Pattern-Key: uptime.timeout.batching
+
+### Resolution
+- **Resolved**: 2026-03-07T07:53:00+01:00
+- **Fix**: Timeout von 60s auf 180s erhöht
 
 ---
 
