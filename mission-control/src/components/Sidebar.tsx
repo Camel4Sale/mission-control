@@ -23,7 +23,7 @@ import {
   Zap
 } from 'lucide-react';
 
-export type Screen = 'tasks' | 'calendar' | 'projects' | 'memory' | 'docs' | 'team' | 'office' | 'molty' | 'openclaw' | 'agents' | 'gateways' | 'activity' | 'approvals' | 'organization';
+export type Screen = 'tasks' | 'calendar' | 'projects' | 'memory' | 'docs' | 'team' | 'office' | 'molty' | 'openclaw' | 'dashboard' | 'agents' | 'gateways' | 'activity' | 'approvals' | 'organization';
 
 interface SidebarProps {
   activeScreen: Screen;
@@ -31,6 +31,7 @@ interface SidebarProps {
 }
 
 const menuItems: { id: Screen; label: string; icon: React.ReactNode; shortcut: string; href?: string; accent?: 'cyan' | 'amber' | 'violet' }[] = [
+  { id: 'dashboard', label: 'Dashboard', icon: <LayoutDashboard size={18} />, shortcut: 'G D', accent: 'cyan', href: '/dashboard' },
   { id: 'tasks', label: 'Tasks', icon: <FolderKanban size={18} />, shortcut: 'G T', accent: 'cyan' },
   { id: 'calendar', label: 'Kalender', icon: <Calendar size={18} />, shortcut: 'G C', accent: 'cyan' },
   { id: 'projects', label: 'Projekte', icon: <LayoutDashboard size={18} />, shortcut: 'G P', accent: 'cyan' },

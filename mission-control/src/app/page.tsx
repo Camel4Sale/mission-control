@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
-import { Plus, Zap } from 'lucide-react';
+import { Plus, Zap, LayoutGrid } from 'lucide-react';
 import Sidebar, { Screen } from '@/components/Sidebar';
 import CommandPalette from '@/components/CommandPalette';
 import TopBar from '@/components/TopBar';
@@ -16,6 +16,8 @@ import TeamScreen from '@/screens/TeamScreen';
 import OfficeScreen from '@/screens/OfficeScreen';
 import MoltyPanel from '@/components/MoltyPanel';
 import OpenClawPage from '@/app/openclaw/page';
+import AnalyticsWidget from '@/components/AnalyticsWidget';
+import QuickStatsWidget from '@/components/QuickStatsWidget';
 
 const screenMap: Record<string, Screen> = {
   'tasks': 'tasks',
