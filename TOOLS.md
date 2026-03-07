@@ -26,3 +26,25 @@ Skills define _how_ tools work. This file is for _your_ specifics — the stuff 
 ## ClawHub Skills
 - discord, frontend-design, answeroverflow, free-ride, nano-pdf
 - weather, himalaya, github, healthcheck
+- **self-improving-agent** - Lernt aus Fehlern & korrekturen (`.learnings/`)
+
+## Cron Delivery Rules (Multi-Channel)
+
+⚠️ **WICHTIG** - Bei Multi-Channel-Setup (telegram + discord):
+
+```json
+"delivery": {
+  "mode": "announce",
+  "channel": "telegram",    // PFLICHT bei >1 Channel
+  "to": "8394473933"        // PFLICHT für Telegram
+}
+```
+
+**Fehler ohne explizite Config:**
+- `Channel is required when multiple channels are configured`
+- `Delivering to Telegram requires target <chatId>`
+
+**Betroffene Jobs (fixen!):**
+- `uptime-check` - braucht channel + to
+- `disk-usage-alert` - braucht channel + to
+- `user-feedback-collector` - braucht to

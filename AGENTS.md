@@ -47,6 +47,26 @@ Capture what matters. Decisions, context, things to remember. Skip the secrets u
 
 ## Skills & Capabilities
 
+### Self-Improvement (Active)
+
+**Location:** `.learnings/` folder
+
+Nach jeder Session:
+1. **Errors loggen** → `.learnings/ERRORS.md` (wenn was schief ging)
+2. **Learnings festhalten** → `.learnings/LEARNINGS.md` (Korrekturen, Best Practices)
+3. **Feature Requests** → `.learnings/FEATURE_REQUESTS.md` (neue Wünsche)
+
+**Wöchentlich:**
+- Review aller pending Einträge
+- Hochpriorisierte Learnings nach `AGENTS.md`, `TOOLS.md`, `SOUL.md` promoten
+- Gelöste Issues als resolved markieren
+
+**Trigger:**
+- Command/Operation failed → ERRORS.md
+- User korrigiert dich → LEARNINGS.md (category: correction)
+- Besserer Ansatz entdeckt → LEARNINGS.md (category: best_practice)
+- User sagt "lerne daraus" → Alle 3 Files checken
+
 ### Installing New Skills
 
 Use **ClawHub** to install new skills:
@@ -282,6 +302,26 @@ Skills define _how_ tools work. When you need one, check its `SKILL.md`. Keep lo
 - **WhatsApp:** No headers — use **bold** or CAPS for emphasis
 
 ## 💓 Heartbeats - Be Proactive!
+
+### 🧠 Self-Optimization Protocol (2026-03-07)
+
+**After Every Session:**
+1. Write comprehensive memory to `memory/YYYY-MM-DD.md`
+2. Update `MEMORY.md` with significant learnings
+3. Commit all changes to git
+4. Document errors and corrections
+5. Prepare next session priorities
+
+**Key Learnings from Best Session (180 tasks, 38/h, 280% efficiency):**
+- Autonomous mode = maximum velocity
+- Parallelization (5-10 tasks) = 3x faster
+- Documentation parallel with code = 0 re-work
+- Memory must be written (mental notes don't survive)
+- Heartbeats are opportunities, not just acknowledgments
+
+**See:** `SELF-OPTIMIZATION-COMPLETE.md` for full protocol
+
+---
 
 When you receive a heartbeat poll (message matches the configured heartbeat prompt), don't just reply `HEARTBEAT_OK` every time. Use heartbeats productively!
 
